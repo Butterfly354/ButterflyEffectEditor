@@ -20,7 +20,7 @@ const App = () => {
               <UndoHistory forceUpdate={forceUpdate} />
             </Col>
             <Col xs={10}>
-              <TextEditor />
+              <TextEditor forceUpdate={forceUpdate} />
             </Col>
           </Row>
         </Container>

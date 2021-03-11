@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import './ActiveGroup.css';
+export let currentActiveGroup = 'Default'; // for testing I think?
 
 const ActiveGroup = ({ groupDict, forceUpdate }) => {
   const [activeGroup, setActiveGroup] = useState('Default');
@@ -12,7 +13,7 @@ const ActiveGroup = ({ groupDict, forceUpdate }) => {
     }
   }, [forceUpdate]);
 
-  return (
+    return (
     <div className="activeDropdown">
       <Dropdown drop="left">
         <Dropdown.Toggle id="toggle">{activeGroup}</Dropdown.Toggle>
@@ -20,9 +21,12 @@ const ActiveGroup = ({ groupDict, forceUpdate }) => {
           {Object.keys(groupDict).map((title, index) => {
             return (
               <Dropdown.Item
-                onClick={() => setActiveGroup(title)}
-                eventKey={index}
-                key={index}>
+                  onClick={() => {
+		      setActiveGroup(title);
+		      currentActiveGroup = title;
+		  }}
+		  eventKey={index}
+                  key={index}>
                 {title}
               </Dropdown.Item>
             );
