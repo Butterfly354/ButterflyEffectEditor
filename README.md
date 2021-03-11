@@ -26,6 +26,6 @@ correct way to create a PR:
 ```
 git add .
 git commit -m"useful message"
-git push origin main
+git push origin BRANCH_NAME
 ```
 on github: go to original repo, new pull request, compare across forks, select your forked repo to head fork, put reviewers, put description
