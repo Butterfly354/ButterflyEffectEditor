@@ -16,9 +16,9 @@ git remote add upstream https://github.com/Butterfly354/ButterflyEffectEditor.gi
 working on new feature, create a new branch and then start working from there:
 ```
 git fetch upstream
-git branch feature-name upstream/main
-git push -u origin feature-name
-git checkout feature-name
+git branch FEATURE_NAME upstream/main
+git push -u origin FEATURE_NAME
+git checkout FEATURE_NAME
 git pull
 ```
 
