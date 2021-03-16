@@ -52,11 +52,11 @@ const CustomMenu = React.forwardRef(
 const ActiveGroup = () => (
   <div className="activeDropdown">
     <Dropdown drop="left">
-      //TODO: change this to the name of the current active group (useState?)
+      {/*TODO: change this to the name of the current active group (useState?) */}
       <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
         Active Group
       </Dropdown.Toggle>
-      //TODO: figure out how to replace these with the groups the user adds
+      {/* TODO: figure out how to replace these with the groups the user adds */}
       <Dropdown.Menu as={CustomMenu}>
         <Dropdown.Item eventKey="1">Red</Dropdown.Item>
         <Dropdown.Item eventKey="2">Blue</Dropdown.Item>
