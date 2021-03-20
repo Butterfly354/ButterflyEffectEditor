@@ -1,7 +1,7 @@
 to start working on this repo:
 
-1. fork it
-2. push any changes to a branch on your own fork
+1. create your own branch
+2. push any changes to that branch
 3. create a PR from that branch
 
 some useful git commands:
@@ -9,14 +9,13 @@ some useful git commands:
 to start off:
 ```
 git init
-git clone https://github.com/YOUR_USERNAME/ButterflyEffectEditor.git
-git remote add upstream https://github.com/Butterfly354/ButterflyEffectEditor.git
+git clone https://github.com/Butterfly354/ButterflyEffectEditor.git
 ```
 
-working on new feature, create a new branch and then start working from there:
+creating a new branch:
 ```
-git fetch upstream
-git branch FEATURE_NAME upstream/main
+git fetch origin
+git branch FEATURE_NAME origin/main
 git push -u origin FEATURE_NAME
 git checkout FEATURE_NAME
 git pull
