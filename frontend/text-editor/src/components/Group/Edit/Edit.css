@@ -1,0 +1,8 @@
+.edit {
+  cursor: pointer;
+  text-align: center;
+}
+
+.active {
+  background-color: #b696fc;
+}
