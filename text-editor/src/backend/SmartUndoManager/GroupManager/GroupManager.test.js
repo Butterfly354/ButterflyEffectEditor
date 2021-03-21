@@ -46,6 +46,12 @@ test('deleting a group works', () => {
   expect(groupDictionary['newGroup']).toBeUndefined();
 });
 
+test('deleting the default group throws', () => {
+  expect(() => {
+    deleteGroup('Default');
+  }).toThrow(`Can't delete the Default group.`);
+});
+
 test('undoing a group works', () => {
   createGroup('group1');
   undoGroup('group1');
