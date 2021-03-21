@@ -4,7 +4,7 @@ import './Edit.css';
 const Edit = ({ editName, groupIsClicked }) => {
   const [isClicked, setIsClicked] = useState(groupIsClicked);
   useEffect(() => {
-    //TODO: when a group has just been clicked to remvove active, change the edit to inactive
+    //TODO: when a group has just been clicked to remove active, change the edit to inactive
     if (groupIsClicked) {
       setIsClicked(groupIsClicked);
     }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Nav, Navbar, NavDropdown, Image } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import ActiveGroup from './ActiveGroup/ActiveGroup';
 import logo from './icons/mdi_butterfly.png';
 
@@ -9,7 +9,7 @@ const TopMenu = ({ groupDict }) => (
   <div>
     <Navbar bg="dark" variant="dark">
       <Navbar.Brand href="#home">
-        Butterfly <img src={logo} id="logo" width="30px" /> Effect
+        Butterfly <img src={logo} id="logo" width="30px" alt="logo" /> Effect
       </Navbar.Brand>
       <Nav className="mr-auto">
         <NavDropdown title="File" id="collasible-nav-dropdown">

@@ -9,6 +9,7 @@ const UndoHistory = ({ groupDict }) => (
 
     <div className="history">
       <SearchBar>
+        {/*TODO: collapse group*/}
         {Object.keys(groupDict).map((title, index) => {
           return <Group title={title} key={index} edits={groupDict[title]} />;
         })}
