@@ -14,7 +14,7 @@ const SearchBar = React.forwardRef(
         aria-labelledby={labeledBy}>
         <FormControl
           autoFocus
-          className="mx-3 my-2 w-auto"
+          className="mx-3 my-2 searchBar"
           placeholder="Type to filter..."
           onChange={(e) => setValue(e.target.value)}
           value={value}
