@@ -4,12 +4,7 @@ import './Edit.css';
 const Edit = ({ editName, groupIsClicked }) => {
   const [isClicked, setIsClicked] = useState(groupIsClicked);
   useEffect(() => {
-    if (groupIsClicked) {
-      setIsClicked(groupIsClicked);
-    }
-    if (!groupIsClicked) {
-      setIsClicked(false);
-    }
+    setIsClicked(groupIsClicked);
   }, [groupIsClicked]);
 
   return (
