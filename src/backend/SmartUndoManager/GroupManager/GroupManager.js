@@ -1,0 +1,91 @@
+import { groupDictionary } from '../SmartUndoManager';
+
+/**
+ * creates a new entry in the dictionary with the key being the groupName, and the value is an empty list.
+ *
+ * @throws an error if groupName is in use.
+ * @param {type} groupName           Name of the new group.
+ */
+const createGroup = (groupName) => {
+  if (groupName in groupDictionary) {
+    throw Error(
+      `Group ${groupName} already exists! Choose another name for your group.`
+    );
+  }
+  groupDictionary[groupName] = [];
+};
+
+/**
+ * renames a group.
+ *
+ * @throws an error if newName is in use.
+ * @throws an error if oldName does not exist
+ * @param {type} oldName           old name of the group.
+ * @param {type} newName           new name of the group.
+ */
+const renameGroup = (oldName, newName) => {
+  if (newName in groupDictionary) {
+    throw Error(
+      `Group ${newName} already exists! Choose another name for your group.`
+    );
+  }
+  if (!(oldName in groupDictionary)) {
+    throw Error(`Group ${oldName} does not exist!`);
+  }
+  const targetKey = groupDictionary[oldName];
+  delete groupDictionary[oldName];
+  groupDictionary[newName] = targetKey;
+};
+
+/**
+ * finds that entry in the dictionary and deletes it. Can’t delete the default group.
+ *
+ * @throws an error if groupName does not exist.
+ * @throws an error if groupName is Default.
+ * @param {type} groupName           Name of the group you want to delete.
+ */
+const deleteGroup = (groupName) => {
+  if (!(groupName in groupDictionary)) {
+    throw Error(`Group ${groupName} does not exist!`);
+  }
+  if (groupName == 'Default') {
+    throw Error(`Can't delete the Default group.`);
+  }
+  delete groupDictionary[groupName];
+};
+
+/**
+ * @throws an error if groupName does not exist.
+ * @returns the list of edits that are the value of the key groupName.
+ * @param {type} groupName           Name of the group you want to get the edits for.
+ */
+const findGroupEdits = (groupName) => {
+  if (!(groupName in groupDictionary)) {
+    throw Error(`Group ${groupName} does not exist!`);
+  }
+  return groupDictionary[groupName];
+};
+
+/**
+ * applies every edit in the group with undoEdits() and deletes the entry (the group and its edits).
+ * @throws an error if groupName does not exist.
+ * @param {type} groupName           Name of the group you want to undo.
+ */
+const undoGroup = (groupName) => {
+  if (!(groupName in groupDictionary)) {
+    throw Error(`Group ${groupName} does not exist!`);
+  }
+  groupDictionary[groupName].forEach((edit) => {
+    //TODO: implement undoEdit, then uncomment this!!
+    //undoEdit(edit);
+  });
+  delete groupDictionary[groupName];
+};
+
+module.exports = {
+  createGroup,
+  renameGroup,
+  deleteGroup,
+  findGroupEdits,
+  undoGroup
+};

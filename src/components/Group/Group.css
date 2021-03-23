@@ -1,0 +1,15 @@
+.edits {
+  margin: 0px 90px;
+}
+
+#title {
+  margin: 0 40px;
+}
+
+.active {
+  background-color: #8248ff8e;
+}
+
+.group {
+  cursor: pointer;
+}

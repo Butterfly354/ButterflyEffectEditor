@@ -7,12 +7,15 @@ to start working on this repo:
 some useful git commands:
 
 to start off:
+
 ```
 git init
 git clone https://github.com/Butterfly354/ButterflyEffectEditor.git
+npm install
 ```
 
 creating a new branch:
+
 ```
 git fetch origin
 git branch FEATURE_NAME origin/main
@@ -22,9 +25,11 @@ git pull
 ```
 
 correct way to create a PR:
+
 ```
 git add .
 git commit -m"useful message"
 git push origin BRANCH_NAME
 ```
-on github: go to original repo, new pull request, compare across forks, select your forked repo to head fork, put reviewers, put description
+
+on github: go to original repo, new pull request, select your branch, put reviewers, put description
