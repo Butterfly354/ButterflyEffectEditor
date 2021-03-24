@@ -1,8 +1,15 @@
 to start working on this repo:
 
+install npm
+
 1. create your own branch
 2. push any changes to that branch
 3. create a PR from that branch
+
+to run the code:
+```npm start``` in the terminal
+```npm test``` to run any tests inside .test.js files
+
 
 some useful git commands:
 
