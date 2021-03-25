@@ -53,7 +53,7 @@ export const moveEdits = (newGroup, edits) => {
 /**
  * remove the most recent edit from the dictionary
  * 
- * @throws a warning if there are no edits in the dictionary
+ * @throws an error if there are no edits in the dictionary
  */
 export const deleteLastEdit = () => {
     let editFound = false;
@@ -64,7 +64,9 @@ export const deleteLastEdit = () => {
         }
     }
     if (!editFound) {
-        return;
+        throw Error(
+            `Unable to delete most recent edit. There are no edits!`
+        );
     }
 
     let mostRecentEditTime = groupDictionary["Default"][groupDictionary["Default"].length - 1].timeCreated;
@@ -87,7 +89,7 @@ export const deleteLastEdit = () => {
 export const deleteEdits = (edits) => {
     if (edits.length < 1) {
         throw Error(
-            `Unable to undo edits. Array of edits is empty!`
+            `Unable to delete edits. Array of edits is empty!`
         );
     }
 
