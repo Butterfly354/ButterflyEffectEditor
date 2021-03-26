@@ -12,7 +12,7 @@ test('adding a valid edit adds it to the dictionary', () => {
 
     EditManager.addEdit(testEdit);
 
-    expect(groupDictionary["testGroup"][0].name).toStrictEqual(testEdit.name);
+    expect(groupDictionary["testGroup"][0]).toStrictEqual(testEdit);
 });
 
 test('moving a valid edit to a valid group moves it successfully', () => {
@@ -29,7 +29,7 @@ test('moving a valid edit to a valid group moves it successfully', () => {
     EditManager.moveEdits("newGroup", editsToMove);
 
     expect(groupDictionary["Default"]).toStrictEqual([]);
-    expect(groupDictionary["newGroup"][0].name).toStrictEqual(testEdit.name);
+    expect(groupDictionary["newGroup"][0]).toStrictEqual(testEdit);
 });
 
 test('undoing the most recent edit removes it from the dictionary', () => {
@@ -145,5 +145,8 @@ test('attempting to move an edit to the group its already in throws error', () =
 function emptyDictionary() {
     for (let groupName in groupDictionary) {
         groupDictionary[groupName] = [];
+        if (groupName.localeCompare("Default") !== 0) {
+            delete groupDictionary[groupName];
+        }
     }
 }
