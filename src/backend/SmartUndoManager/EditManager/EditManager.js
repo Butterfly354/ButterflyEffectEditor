@@ -1,7 +1,7 @@
 import { groupDictionary } from '../SmartUndoManager';
 
 /**
- * add a new edit in the dictionary in the current active group
+ * add a new edit in the dictionary in the edit's specified groupName. The group name should be the current active group.
  *
  * @throws an error if the edit object's group name does not exist
  * @param {Edit} edit              the edit object
@@ -35,10 +35,12 @@ export const moveEdits = (newGroup, edits) => {
             `Unable to move edits. Array of edits is empty!`
         );
     }
-    if (edits[0].groupName.localeCompare(newGroup) === 0) {
-        throw Error(
-            `Unable to move edits. Edits are already in the specified group!`
-        );
+    for (let i = 0; i < edits.length; i++) {
+        if (edits[i].groupName.localeCompare(newGroup) === 0) {
+            throw Error(
+                `Unable to move edits. Edit ${edits[i].name} is already in the specified group ${newGroup}!`
+            );
+        }
     }
     for (let i = 0; i < edits.length; i++) {
         let index = groupDictionary[edits[i].groupName].indexOf(edits[i]);
@@ -55,7 +57,7 @@ export const moveEdits = (newGroup, edits) => {
  * 
  * @throws an error if there are no edits in the dictionary
  */
-export const deleteLastEdit = () => {
+export const undoLastEdit = () => {
     let editFound = false;
     for (let groupName in groupDictionary) {
         if (groupDictionary[groupName].length > 0) {
@@ -69,12 +71,14 @@ export const deleteLastEdit = () => {
         );
     }
 
-    let mostRecentEditTime = groupDictionary["Default"][groupDictionary["Default"].length - 1].timeCreated;
-    let mostRecentEdit = groupDictionary["Default"][groupDictionary["Default"].length - 1];
+    let mostRecentEdit;
+    let mostRecentEditTime = new Date(-8640000000000000);
     for (let groupName in groupDictionary) {
-        if (groupDictionary[groupName][groupDictionary[groupName].length - 1].timeCreated > mostRecentEditTime) {
-            mostRecentEditTime = groupDictionary[groupName][groupDictionary[groupName].length - 1].timeCreated;
-            mostRecentEdit = groupDictionary[groupName][groupDictionary[groupName].length - 1];
+        // get the latest edit in the current group, which is always the last edit in the list
+        let currentEdit = groupDictionary[groupName][groupDictionary[groupName].length - 1];
+        if (currentEdit.timeCreated > mostRecentEditTime) {
+            mostRecentEdit = currentEdit;
+            mostRecentEditTime = mostRecentEdit.timeCreated;
         }
     }
     groupDictionary[mostRecentEdit.groupName].pop();
@@ -100,3 +104,5 @@ export const deleteEdits = (edits) => {
         }
     }
 };
+
+// TODO check if we should update edit positions as the user makes changes to the document
