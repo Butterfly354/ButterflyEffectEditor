@@ -22,13 +22,14 @@ test('moving a list of edits to a nonexistent group throws error', () => {
     );
 });
 
-test('calling undoLastEdit() when there are no edits does nothing', () => {
+test('calling undoLastEdit() when there are no edits throws error', () => {
+    groupDictionary["Default"] = [];
     groupDictionary["newGroup"] = [];
 
     expect(() => {
         deleteLastEdit();
     }).toThrow(
-        `Unable to move edits. Group fakeGroup does not exist!`
+        `Unable to delete most recent edit. There are no edits!`
     );
 });
 
