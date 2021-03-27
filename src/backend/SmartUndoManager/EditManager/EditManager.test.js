@@ -15,21 +15,27 @@ test('adding a valid edit adds it to the dictionary', () => {
     expect(groupDictionary["testGroup"][0]).toStrictEqual(testEdit);
 });
 
-test('moving a valid edit to a valid group moves it successfully', () => {
+test('moving a valid edit to a valid group moves it successfully and sorts the list appropriately', () => {
     emptyDictionary();
 
     let position = [2, 3]
-    let testEdit = new Edit("testname", "hello my name is bojan", position, new Date(), "Default", EditType.add);
+    let testEdit = new Edit("testname", "hello my name is bojan", position, new Date(1234), "Default", EditType.add);
+    let testEdit2 = new Edit("testname2", "hello my name is bojan", position, new Date(8640000000000000), "newGroup", EditType.add);
+    let testEdit3 = new Edit("testname3", "hello my name is bojan", position, new Date(123), "Default", EditType.add);
 
     groupDictionary["newGroup"] = [];
 
     EditManager.addEdit(testEdit);
+    EditManager.addEdit(testEdit2);
+    EditManager.addEdit(testEdit3);
 
-    let editsToMove = [testEdit];
+    let editsToMove = [testEdit, testEdit3];
     EditManager.moveEdits("newGroup", editsToMove);
 
     expect(groupDictionary["Default"]).toStrictEqual([]);
-    expect(groupDictionary["newGroup"][0]).toStrictEqual(testEdit);
+    expect(groupDictionary["newGroup"][0]).toStrictEqual(testEdit3);
+    expect(groupDictionary["newGroup"][1]).toStrictEqual(testEdit);
+    expect(groupDictionary["newGroup"][2]).toStrictEqual(testEdit2);
 });
 
 test('undoing the most recent edit removes it from the dictionary', () => {

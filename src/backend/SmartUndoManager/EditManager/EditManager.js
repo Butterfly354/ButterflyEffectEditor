@@ -43,6 +43,7 @@ export const moveEdits = (newGroup, edits) => {
             groupDictionary[newGroup].push(edits[i]);
         }
     }
+    groupDictionary[newGroup].sort((a, b) => a.timeCreated.getTime() - b.timeCreated.getTime());
 };
 
 /**
