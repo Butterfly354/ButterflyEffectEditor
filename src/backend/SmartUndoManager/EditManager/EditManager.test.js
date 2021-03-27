@@ -124,22 +124,24 @@ test('passing an empty list to deleteEdits() throws an error', () => {
     );
 });
 
-test('attempting to move an edit to the group its already in throws error', () => {
+test('attempting to move an edit to the group its already in does not move that edit', () => {
     emptyDictionary();
 
     let position = [2, 3]
-    let testEdit = new Edit("testname", "hello my name is bojan", position, new Date(), "newGroup", EditType.add);
+    let testEdit = new Edit("testname", "hello my name is bojan", position, new Date(), "Default", EditType.add);
+    let testEdit2 = new Edit("testname", "hello my name is bojan", position, new Date(), "newGroup", EditType.add);
 
     groupDictionary["newGroup"] = [];
 
     EditManager.addEdit(testEdit);
+    EditManager.addEdit(testEdit2);
 
-    let editsToMove = [testEdit];
-    expect(() => {
-        EditManager.moveEdits("newGroup", editsToMove);
-    }).toThrow(
-        `Unable to move edits. Edit testname is already in the specified group newGroup!`
-    );
+    let editsToMove = [testEdit, testEdit2];
+    EditManager.moveEdits("newGroup", editsToMove);
+
+    expect(groupDictionary["Default"]).toStrictEqual([]);
+    expect(groupDictionary["newGroup"][0]).toStrictEqual(testEdit2);
+    expect(groupDictionary["newGroup"][1]).toStrictEqual(testEdit);
 });
 
 function emptyDictionary() {

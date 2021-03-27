@@ -36,19 +36,12 @@ export const moveEdits = (newGroup, edits) => {
         );
     }
     for (let i = 0; i < edits.length; i++) {
-        if (edits[i].groupName.localeCompare(newGroup) === 0) {
-            throw Error(
-                `Unable to move edits. Edit ${edits[i].name} is already in the specified group ${newGroup}!`
-            );
-        }
-    }
-    for (let i = 0; i < edits.length; i++) {
         let index = groupDictionary[edits[i].groupName].indexOf(edits[i]);
-        if (index > -1) {
+        if (index > -1 && edits[i].groupName.localeCompare(newGroup) !== 0) {
             groupDictionary[edits[i].groupName].splice(index, 1);
+            edits[i].groupName = newGroup;
+            groupDictionary[newGroup].push(edits[i]);
         }
-        edits[i].groupName = newGroup;
-        groupDictionary[newGroup].push(edits[i]);
     }
 };
 
