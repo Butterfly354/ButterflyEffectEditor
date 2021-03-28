@@ -3,9 +3,13 @@ import {
   renameGroup,
   deleteGroup,
   findGroupEdits,
-  undoGroup
+  undoGroup,
+  deleteAllGroups
 } from './GroupManager';
 import { groupDictionary } from '../SmartUndoManager';
+
+/*NOTE: these tests are very coupled, tests rely on the tests before them as 
+I create a group in one test and use it again in another test, which is not ideal, but does the job. */
 
 test('adding a group with a correct name', () => {
   createGroup('group1');
@@ -22,9 +26,10 @@ test('adding a group with the same name throws error', () => {
 });
 
 test('renaming a group works', () => {
+  var content = groupDictionary['group1'];
   renameGroup('group1', 'newGroup');
   expect(groupDictionary['group1']).toBeUndefined();
-  expect(groupDictionary['newGroup']).toStrictEqual([]);
+  expect(groupDictionary['newGroup']).toStrictEqual(content);
 });
 
 test('deleting a nonexistent group throws', () => {
@@ -57,4 +62,10 @@ test('undoing a group works', () => {
   undoGroup('group1');
   //TODO: fix this test, how to test undoing edits and groups?
   expect(groupDictionary['group1']).toBeUndefined();
+});
+
+test('deleting all groups works', () => {
+  createGroup('group1');
+  deleteAllGroups();
+  expect(groupDictionary).toStrictEqual({ Default: [] });
 });

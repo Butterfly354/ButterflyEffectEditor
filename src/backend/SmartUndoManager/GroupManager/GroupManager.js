@@ -82,10 +82,26 @@ const undoGroup = (groupName) => {
   delete groupDictionary[groupName];
 };
 
+/**
+ * deletes all groups. Can’t delete the default group.
+ * Use carefully.
+ */
+const deleteAllGroups = () => {
+  for (let groupName in groupDictionary) {
+    if (groupName.localeCompare('Default') !== 0) {
+      delete groupDictionary[groupName];
+    } else {
+      //if it is the default group, just empty it.
+      groupDictionary[groupName] = [];
+    }
+  }
+};
+
 module.exports = {
   createGroup,
   renameGroup,
   deleteGroup,
   findGroupEdits,
-  undoGroup
+  undoGroup,
+  deleteAllGroups
 };
