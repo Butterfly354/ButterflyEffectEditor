@@ -4,6 +4,7 @@ import './ActiveGroup.css';
 
 const ActiveGroup = ({ groupDict }) => {
   const [activeGroup, setActiveGroup] = useState('Default');
+  //TODO: change the active group when all groups are deleted, or even an individual group if that group happens to be the active one.
 
   return (
     <div className="activeDropdown">

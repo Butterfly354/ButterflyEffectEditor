@@ -99,4 +99,14 @@ export const deleteEdits = (edits) => {
     }
 };
 
+/**
+ * deletes all edits. Doesn't delete the groups.
+ * Use carefully.
+ */
+ export const deleteAllEdits = () => {
+    for (let groupName in groupDictionary) {
+      groupDictionary[groupName] = [];
+    }
+  };
+
 // TODO check if we should update edit positions as the user makes changes to the document
