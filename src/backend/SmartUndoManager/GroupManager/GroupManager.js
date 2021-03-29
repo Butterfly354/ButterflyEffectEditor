@@ -6,7 +6,7 @@ import { groupDictionary } from '../SmartUndoManager';
  * @throws an error if groupName is in use.
  * @param {type} groupName           Name of the new group.
  */
-const createGroup = (groupName) => {
+export const createGroup = (groupName) => {
   if (groupName in groupDictionary) {
     throw Error(
       `Group ${groupName} already exists! Choose another name for your group.`
@@ -23,7 +23,7 @@ const createGroup = (groupName) => {
  * @param {type} oldName           old name of the group.
  * @param {type} newName           new name of the group.
  */
-const renameGroup = (oldName, newName) => {
+export const renameGroup = (oldName, newName) => {
   if (newName in groupDictionary) {
     throw Error(
       `Group ${newName} already exists! Choose another name for your group.`
@@ -44,11 +44,11 @@ const renameGroup = (oldName, newName) => {
  * @throws an error if groupName is Default.
  * @param {type} groupName           Name of the group you want to delete.
  */
-const deleteGroup = (groupName) => {
+export const deleteGroup = (groupName) => {
   if (!(groupName in groupDictionary)) {
     throw Error(`Group ${groupName} does not exist!`);
   }
-  if (groupName == 'Default') {
+  if (groupName === 'Default') {
     throw Error(`Can't delete the Default group.`);
   }
   delete groupDictionary[groupName];
@@ -59,7 +59,7 @@ const deleteGroup = (groupName) => {
  * @returns the list of edits that are the value of the key groupName.
  * @param {type} groupName           Name of the group you want to get the edits for.
  */
-const findGroupEdits = (groupName) => {
+export const findGroupEdits = (groupName) => {
   if (!(groupName in groupDictionary)) {
     throw Error(`Group ${groupName} does not exist!`);
   }
@@ -71,7 +71,7 @@ const findGroupEdits = (groupName) => {
  * @throws an error if groupName does not exist.
  * @param {type} groupName           Name of the group you want to undo.
  */
-const undoGroup = (groupName) => {
+export const undoGroup = (groupName) => {
   if (!(groupName in groupDictionary)) {
     throw Error(`Group ${groupName} does not exist!`);
   }
@@ -86,7 +86,7 @@ const undoGroup = (groupName) => {
  * deletes all groups. Can’t delete the default group.
  * Use carefully.
  */
-const deleteAllGroups = () => {
+export const deleteAllGroups = () => {
   for (let groupName in groupDictionary) {
     if (groupName.localeCompare('Default') !== 0) {
       delete groupDictionary[groupName];
@@ -95,13 +95,4 @@ const deleteAllGroups = () => {
       groupDictionary[groupName] = [];
     }
   }
-};
-
-module.exports = {
-  createGroup,
-  renameGroup,
-  deleteGroup,
-  findGroupEdits,
-  undoGroup,
-  deleteAllGroups
 };
