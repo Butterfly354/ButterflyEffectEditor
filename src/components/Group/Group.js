@@ -12,10 +12,8 @@ const Group = ({ title, edits }) => {
         onClick={() => {
           if (!isClicked) {
             clickedItems.push(title);
-            console.log(clickedItems);
           } else {
             clickedItems.pop(title);
-            console.log(clickedItems);
           }
           setIsClicked(!isClicked);
         }}>
