@@ -3,7 +3,8 @@ import './UndoHistory.css';
 import Group from '../Group/Group';
 import SearchBar from '../SearchBar/SearchBar';
 
-export let clickedItems = [];
+export let clickedGroups = [];
+export let clickedEdits = [];
 
 const UndoHistory = ({ groupDict }) => (
   <div className="main">

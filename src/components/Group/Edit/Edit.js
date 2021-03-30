@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import './Edit.css';
-import { clickedItems } from '../../UndoHistory/UndoHistory';
+import { clickedEdits } from '../../UndoHistory/UndoHistory';
 
-const Edit = ({ editName, groupIsClicked }) => {
+const Edit = ({ edit, groupIsClicked }) => {
   const [isClicked, setIsClicked] = useState(groupIsClicked);
   useEffect(() => {
     setIsClicked(groupIsClicked);
-    //if it wasn't clicked, it will be now
+    //if it group is clicked, but edit wasn't, add edit
     if (groupIsClicked && !isClicked) {
-      clickedItems.push(editName);
-    } else if (groupIsClicked && isClicked) {
-      //do nothing
-    } else {
-      clickedItems.pop(editName);
+      clickedEdits.push(edit);
+      console.log(clickedEdits);
+    } else if (!groupIsClicked) {
+      clickedEdits.pop(edit);
+      console.log(clickedEdits);
     }
   }, [groupIsClicked]);
 
@@ -24,13 +24,15 @@ const Edit = ({ editName, groupIsClicked }) => {
           setIsClicked(!isClicked);
           //if it wasn't clicked, it will be now
           if (!isClicked) {
-            clickedItems.push(editName);
+            clickedEdits.push(edit);
+            console.log(clickedEdits);
           } else {
-            clickedItems.pop(editName);
+            clickedEdits.pop(edit);
+            console.log(clickedEdits);
           }
         }
       }}>
-      <p>{editName}</p>
+      <p>{edit.name}</p>
     </div>
   );
 };

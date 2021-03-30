@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Group.css';
 import Edit from './Edit/Edit';
-import { clickedItems } from '../UndoHistory/UndoHistory';
+import { clickedGroups } from '../UndoHistory/UndoHistory';
 
 const Group = ({ title, edits }) => {
   const [isClicked, setIsClicked] = useState(false);
@@ -11,19 +11,21 @@ const Group = ({ title, edits }) => {
         id="title"
         onClick={() => {
           if (!isClicked) {
-            clickedItems.push(title);
-          } else {
-            clickedItems.pop(title);
+            clickedGroups.push(title);
+            console.log(clickedGroups);
+          } else if (isClicked) {
+            clickedGroups.pop(title);
+            console.log(clickedGroups);
           }
           setIsClicked(!isClicked);
         }}>
         {title}
       </p>
-      {edits.map((editName, key) => {
+      {edits.map((edit, key) => {
         return (
           <Edit
             className="edits"
-            editName={editName.name}
+            edit={edit}
             groupIsClicked={isClicked}
             key={key}
           />
