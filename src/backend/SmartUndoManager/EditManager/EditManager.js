@@ -110,3 +110,6 @@ export const deleteEdits = (edits) => {
   };
 
 // TODO check if we should update edit positions as the user makes changes to the document
+//export default EditManager;
+
+

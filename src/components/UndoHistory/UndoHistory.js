@@ -2,6 +2,20 @@ import React from 'react';
 import './UndoHistory.css';
 import Group from '../Group/Group';
 import SearchBar from '../SearchBar/SearchBar';
+import * as UI from '../../components/UI/UI';
+//import UI from '../UI/UI';
+
+//import UI from '../../components/UI/UI';
+//import UI from './UI';
+
+
+//import * as UI from './UI';
+
+/*
+<script type = "text/javaScript"
+src = "../UI.js">
+</script>
+*/
 
 const UndoHistory = ({ groupDict }) => (
   <div className="main">
@@ -15,11 +29,11 @@ const UndoHistory = ({ groupDict }) => (
         })}
       </SearchBar>
     </div>
-
+    
     <div className="buttonGroup">
       <button>Move</button>
-      <button>Delete</button>
-      <button id="mainButton">Undo</button>
+      <button  /*onClick={UI.DeleteEdits()}*/  >Delete</button>
+      <button id="mainButton"  /*onClick={UI.UndoLastEdit()} */   >Undo</button>
     </div>
   </div>
 );

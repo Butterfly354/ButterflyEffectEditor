@@ -1,9 +1,12 @@
 import React from 'react';
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Nav, Navbar, NavDropdown,FormControl } from 'react-bootstrap';
 import ActiveGroup from './ActiveGroup/ActiveGroup';
 import logo from './icons/mdi_butterfly.png';
+import * as UI from '../../components/UI/UI';
 
 import './TopMenu.css';
+
+
 
 const TopMenu = ({ groupDict }) => (
   <div>
@@ -21,15 +24,18 @@ const TopMenu = ({ groupDict }) => (
         </NavDropdown>
         <NavDropdown title="Font" id="collasible-nav-dropdown">
           <NavDropdown.Item href="#action/3.1">
-            Change Font Size
+            Change Font Size         
           </NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title="Group" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">
+          <NavDropdown.Item href="#action/3.1"  onClick ={TopMenu.myFunction} >
             Create New Group
           </NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">
-            Delete All Groups
+          <NavDropdown.Item id='panel' class="flip" onClick ={UI.CreateGroup} >
+            This will appear after
+          </NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2" onClick ={UI.DeleteAllGroups()}  >
+            Delete All Groups 
           </NavDropdown.Item>
         </NavDropdown>
         <Nav.Link href="#undoHistory">Undo History</Nav.Link>
@@ -40,5 +46,9 @@ const TopMenu = ({ groupDict }) => (
     </Navbar>
   </div>
 );
+
+function myFunction() {
+  alert(document.getElementById("panel"));
+  document.getElementById("panel").style.display = "block"};
 
 export default TopMenu;
