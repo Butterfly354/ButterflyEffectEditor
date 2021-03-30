@@ -6,7 +6,7 @@ import { groupDictionary } from '../SmartUndoManager';
  * @throws an error if groupName is in use.
  * @param {type} groupName           Name of the new group.
  */
- export const createGroup = (groupName) => {
+export const createGroup = (groupName) => {
   if (groupName in groupDictionary) {
     throw Error(
       `Group ${groupName} already exists! Choose another name for your group.`
@@ -23,7 +23,7 @@ import { groupDictionary } from '../SmartUndoManager';
  * @param {type} oldName           old name of the group.
  * @param {type} newName           new name of the group.
  */
- export const renameGroup = (oldName, newName) => {
+export const renameGroup = (oldName, newName) => {
   if (newName in groupDictionary) {
     throw Error(
       `Group ${newName} already exists! Choose another name for your group.`
@@ -44,11 +44,11 @@ import { groupDictionary } from '../SmartUndoManager';
  * @throws an error if groupName is Default.
  * @param {type} groupName           Name of the group you want to delete.
  */
- export const deleteGroup = (groupName) => {
+export const deleteGroup = (groupName) => {
   if (!(groupName in groupDictionary)) {
     throw Error(`Group ${groupName} does not exist!`);
   }
-  if (groupName == 'Default') {
+  if (groupName === 'Default') {
     throw Error(`Can't delete the Default group.`);
   }
   delete groupDictionary[groupName];
@@ -96,8 +96,3 @@ export const deleteAllGroups = () => {
     }
   }
 };
-
-
-
-
-

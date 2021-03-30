@@ -17,6 +17,9 @@ src = "../UI.js">
 </script>
 */
 
+export let clickedGroups = [];
+export let clickedEdits = [];
+
 const UndoHistory = ({ groupDict }) => (
   <div className="main">
     <h5>Undo History</h5>
