@@ -33,6 +33,7 @@ const TopMenu = ({ groupDict }) => {
               ref={TopMenu.myRef}
               onChange={() => {
                 let fileToOpen = TopMenu.myRef.current.files[0];
+                //TODO: this isn't logging the contents.. why?
                 console.log(openFile(fileToOpen));
               }}></input>
             <NavDropdown.Item>Save</NavDropdown.Item>
