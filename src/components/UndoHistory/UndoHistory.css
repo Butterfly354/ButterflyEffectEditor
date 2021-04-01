@@ -50,6 +50,11 @@
   left: 20px;
 }
 
+.buttonGroup {
+  display: flex;
+  flex-direction: row;
+}
+
 .buttonGroup button {
   border: none;
   border-radius: 6px;

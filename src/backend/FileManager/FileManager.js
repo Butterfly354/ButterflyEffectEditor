@@ -59,7 +59,23 @@ export const openFile = (file) => {
 
   // (Currently only accepting plain text files)
   // If it's not a plain text file, throw error
-  if (!(fileExtension === 'txt')) {
+
+  let illegalExtension = [
+    'css',
+    'ico',
+    'png',
+    'pdf',
+    'svg',
+    'doc',
+    'docs',
+    'ppt',
+    'json',
+    'jpg',
+    'jpeg',
+    'docx'
+  ];
+
+  if (illegalExtension.includes(fileExtension)) {
     throw Error('Invalid file type.');
   }
 

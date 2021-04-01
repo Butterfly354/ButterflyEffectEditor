@@ -27,13 +27,16 @@ const TopMenu = ({ groupDict }) => {
             </NavDropdown.Item>
             <input
               type="file"
-              accept=".txt"
               id="input"
               style={{ display: 'none' }}
               ref={TopMenu.myRef}
               onChange={async () => {
                 let fileToOpen = TopMenu.myRef.current.files[0];
-                TextEditor.myRef.current.value = await openFile(fileToOpen);
+                try {
+                  TextEditor.myRef.current.value = await openFile(fileToOpen);
+                } catch (err) {
+                  console.error(err);
+                }
               }}></input>
             <NavDropdown.Item>Save</NavDropdown.Item>
             <NavDropdown.Divider />
