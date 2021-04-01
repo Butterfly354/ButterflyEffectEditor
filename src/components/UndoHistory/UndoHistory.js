@@ -2,9 +2,7 @@ import React from 'react';
 import './UndoHistory.css';
 import Group from '../Group/Group';
 import SearchBar from '../SearchBar/SearchBar';
-
-export let clickedGroups = [];
-export let clickedEdits = [];
+import {saveAsFile} from '../../backend/FileManager/FileManager';
 
 const UndoHistory = ({ groupDict }) => (
   <div className="main">
@@ -20,7 +18,7 @@ const UndoHistory = ({ groupDict }) => (
     </div>
 
     <div className="buttonGroup">
-      <button>Move</button>
+      <button onClick = {() => {saveAsFile("Hello", "Butterfly") }}>Move</button>
       <button>Delete</button>
       <button id="mainButton">Undo</button>
     </div>
