@@ -4,7 +4,7 @@
  * @param {type} textInput           User's content in the text canvas stored in a variable
  * @param {type} fileName            User's input for the fileName
  */
-export const saveAsFile = (textInput, fileName) => {
+export const downloadFile = (textInput, fileName) => {
   //If fileName is empty, it is assigned "Butterfly" as a default name
   if (fileName === '') {
     fileName = 'Butterfly';
@@ -20,7 +20,6 @@ export const saveAsFile = (textInput, fileName) => {
   //       textFileType = "application/msword";
   //       break;
   //     default:
-  //       // code block
   //   }
 
   var textInputAsBlob = new Blob([textInput], { type: 'text/plain' });
@@ -50,11 +49,12 @@ const destroyClickedElement = (event) => {
 /**
  * Function that returns the content from the user's selected file
  *
- * @param {type} filePath           file path of the user's selected file
+ * @param {type} file           file blob of the user's selected file
  */
-export const openFile = (filePath) => {
+export const openFile = (file) => {
+  console.log(file);
   // Getting the extension of the file
-  let fileName = filePath.name;
+  let fileName = file.name;
   var fileExtension = fileName.split('.').pop();
 
   // (Currently only accepting plain text files)
@@ -63,10 +63,11 @@ export const openFile = (filePath) => {
     throw Error('Invalid file type.');
   }
 
-  // Read from file and store in a string
-  var fileReader = new FileReader();
-  fileReader.readAsText(filePath);
-  fileReader.onload = function (event) {
-    return event.target.result;
-  };
+  return new Promise(function (resolve) {
+    var reader = new FileReader();
+    reader.onloadend = function () {
+      resolve(reader.result);
+    };
+    reader.readAsText(file);
+  });
 };

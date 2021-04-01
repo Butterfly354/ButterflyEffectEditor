@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import ActiveGroup from './ActiveGroup/ActiveGroup';
 import logo from './icons/mdi_butterfly.png';
-import { saveAsFile, openFile } from '../../backend/FileManager/FileManager';
+import { downloadFile, openFile } from '../../backend/FileManager/FileManager';
 import TextEditor from '../TextEditor/TextEditor.js';
 
 import './TopMenu.css';
@@ -31,16 +31,15 @@ const TopMenu = ({ groupDict }) => {
               id="input"
               style={{ display: 'none' }}
               ref={TopMenu.myRef}
-              onChange={() => {
+              onChange={async () => {
                 let fileToOpen = TopMenu.myRef.current.files[0];
-                //TODO: this isn't logging the contents.. why?
-                console.log(openFile(fileToOpen));
+                TextEditor.myRef.current.value = await openFile(fileToOpen);
               }}></input>
             <NavDropdown.Item>Save</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item
               onClick={() => {
-                saveAsFile(TextEditor.myRef.current.value, 'Butterfly');
+                downloadFile(TextEditor.myRef.current.value, 'Butterfly');
               }}>
               Download file
             </NavDropdown.Item>

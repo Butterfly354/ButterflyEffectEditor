@@ -1,23 +1,22 @@
-import {
-    saveAsFile,
-    openFile
-} from './FileManager';
+import { downloadFile, openFile } from './FileManager';
 
 // test('Saving the content and downloading it as a text file', () => {
-//     saveAsFile('Butterfly Effect Editor', 'Butterfly');
+//     downloadFile('Butterfly Effect Editor', 'Butterfly');
 
 //     expect('');
 // })
 
-// test('Passing empty parameters to saveAsFile()', () => {
-//     saveAsFile('', 'Butterfly');
+// test('Passing empty parameters to downloadFile()', () => {
+//     downloadFile('', 'Butterfly');
 
 //     expect('');
 // })
 
 test('Opening selected file and saving file content in variable', () => {
-    expect(openFile('src/backend/FileManager/ButterflyTest.txt')).toStrictEqual('Butterfly Effect Editor');
-})
+  expect(openFile('src/backend/FileManager/ButterflyTest.txt')).toStrictEqual(
+    'Butterfly Effect Editor'
+  );
+});
 
 // test('Invalid parameters passed in openFile() will throw error', () => {
 //     expect(() => {
