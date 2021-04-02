@@ -6,7 +6,7 @@ import 'draft-js/dist/Draft.css';
 const TextEditor = () => {
   TextEditor.myRef = React.createRef();
 
-  return (
+    return (
     <div className="editor">
       <textarea id="textarea" ref={TextEditor.myRef}></textarea>
     </div>
