@@ -2,6 +2,7 @@ import React from 'react';
 import './UndoHistory.css';
 import Group from '../Group/Group';
 import SearchBar from '../SearchBar/SearchBar';
+<<<<<<< Updated upstream
 import * as UI from '../../components/UI/UI';
 //import UI from '../UI/UI';
 
@@ -16,9 +17,12 @@ import * as UI from '../../components/UI/UI';
 src = "../UI.js">
 </script>
 */
+=======
+import * as UI from '../../backend/UIDriver/UIDriver';
+>>>>>>> Stashed changes
 
-export let clickedGroups = [];
 export let clickedEdits = [];
+export let clickedGroups = [];
 
 const UndoHistory = ({ groupDict }) => (
   <div className="main">
@@ -34,9 +38,17 @@ const UndoHistory = ({ groupDict }) => (
     </div>
     
     <div className="buttonGroup">
+<<<<<<< Updated upstream
       <button>Move</button>
       <button  /*onClick={UI.DeleteEdits()}*/  >Delete</button>
       <button id="mainButton"  /*onClick={UI.UndoLastEdit()} */   >Undo</button>
+=======
+      <button /*onClick={UI.MoveEdits(clickedEdits)} */>Move</button>
+      <button /*onClick={UI.DeleteEdits(clickedEdits)} */>Delete</button>
+      <button id="mainButton" /* onClick={UI.UndoGroup(clickedGroups[0])}  */>
+        Undo
+      </button>
+>>>>>>> Stashed changes
     </div>
   </div>
 );
