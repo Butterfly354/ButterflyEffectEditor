@@ -51,9 +51,6 @@ export const CreateGroup = (groupname) => {
  * @param {type} newname the new name of the group.
  */
 export const RenameGroup = (oldname, newname) => {
-  // old name
-  //new name
-  //(old name, new name)
   GroupManager.renameGroup(oldname, newname);
 };
 
