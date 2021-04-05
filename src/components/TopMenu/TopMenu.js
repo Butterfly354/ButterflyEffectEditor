@@ -38,7 +38,7 @@ const TopMenu = ({ groupDict }) => {
                 try {
                   TextEditor.myRef.current.value = await openFile(fileToOpen);
                 } catch (err) {
-                  console.error(err);
+                  console.error("Invalid file type.");
                 }
               }}></input>
             <NavDropdown.Item>Save</NavDropdown.Item>

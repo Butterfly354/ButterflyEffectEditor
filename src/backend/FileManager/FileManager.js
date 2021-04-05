@@ -63,12 +63,8 @@ export const openFile = (file) => {
   ];
 
   // The error will be thrown and the function will return an empty string
-  try {
-    if (illegalExtension.includes(fileExtension)) {
-      throw Error('Invalid file type.');
-    }
-  } catch (error) {
-    return "";
+  if (illegalExtension.includes(fileExtension)) {
+    throw Error('Invalid file type.');
   }
   
   return new Promise(function (resolve) {

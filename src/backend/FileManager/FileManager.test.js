@@ -1,9 +1,6 @@
 import { downloadFile, openFile } from './FileManager';
 
-// Tried looking at how to locate or set filepath, but it doesn't work because of security reasons 
-// Tried putting something where if it was downloaded it will receive a boolean for a successful download
-// In the end, windows.URL is a function for browswer so only works in the browswer
-// May not be able to include any test cases for downloadFile()
+/*TODO: test downloadFile with puppeteer*/
 
 // test('Saving the content and downloading it as a text file', () => {
 //   expect(downloadFile("Test works", "Butterfly")
