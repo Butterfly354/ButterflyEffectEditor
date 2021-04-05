@@ -25,7 +25,15 @@ const TextEditor = () => {
 	    newEdit = false;
 	    saveEdit = false;
 	} else {
-	    if (now.getSeconds() - editStartTime >= 5 || (now.getSeconds() - editStartTime <= 0 && now.getSeconds() - editStartTime >= -5)){
+
+	    let timeout = (now.getSeconds() - editStartTime >= 5 ||
+			   (now.getSeconds() - editStartTime <= 0 &&
+			    now.getSeconds() - editStartTime >= -5))
+	    let cursorJump = ((position > (editStartPos+editStack.length+1)) ||
+			      (position < editStartPos))
+	    
+	    
+	    if (timeout || cursorJump){
 		console.log(now.getSeconds() +" : " + editStartTime);
 		saveEdit = true;
 	    }
@@ -41,18 +49,61 @@ const TextEditor = () => {
 	    editStack = [];
 	    
 	}
+	/*
+	 * regular expression to check if the character just typed was a printable character
+	 * that would have been added to the dock
+	 */
 	
-	editStack[editStack.length] = (event.key);
+	if (event.key == " "){
+	    console.log("----Space----");
+	    editStack.splice((position-editStartPos),0," ");
+	}else if (event.key === "Backspace" || event.key == "Delete"){
+	    console.log("----Backspace---");
+	    editStack.splice((position-editStartPos),1);
+	}else if (event.key.length == 1 && event.key.charCodeAt(0) >=33 && event.key.charCodeAt(0) <=126 ){
+	    console.log("----Normal Key---");
+	    editStack.splice((position-editStartPos),0,event.key);
+	}else {
+	    console.log("Invalid, CharCode: " + event.key);
+	}
+	
 	console.log("e:"+editStack +" p:"+ position+" t:"+now.getSeconds());
 	console.log("saved: "+fakeSavedEdits);
     }
+    /**
+     * Will insert an edit into the text body, will return a boolean of true or false to signify if it was successful or not
+     * @returns bool
+     *//* Ignore this for now, is the vdery start of implementation
+	* I may have some feedback on how to implement the edits and types better though
+	* 
+    function insertEdit(edit) {
+	
+	var editStartPos = shiftPosition(edit);
+	var editEndPos = editStartPos+edit.contents.length;
+	switch (edit.type){
+	case "add":{
+	    
+	}break;
+	case "remove":{
+
+	}break;
+	case "repalce":{
+
+	}break;
+	default:
+	    return false;
+	}
+	
+	return false;
+    }
+    */
     
     return (
     <div className="editor">
 	<textarea
 	    id="textarea"
 	    ref={TextEditor.myRef}
-	    onKeyPress={(e) => handler(e)}
+	    onKeyDown={(e) => handler(e)}
 	></textarea>
     </div>
   );
