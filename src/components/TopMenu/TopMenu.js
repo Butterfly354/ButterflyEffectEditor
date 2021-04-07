@@ -56,7 +56,7 @@ const TopMenu = () => {
                 try {
                   TextEditor.myRef.current.value = await openFile(fileToOpen);
                 } catch (err) {
-                  console.error('Invalid file type.');
+                  alert(err);
                 }
               }}></input>
             <NavDropdown.Item>Save</NavDropdown.Item>
@@ -148,9 +148,13 @@ const TopMenu = () => {
           <Button
             variant="primary"
             onClick={() => {
-              createGroup(groupNameInput.current.value);
-              setGroupDict({ ...groupDict });
-              setGroupShow(false);
+              try {
+                createGroup(groupNameInput.current.value);
+                setGroupDict({ ...groupDict });
+                setGroupShow(false);
+              } catch (err) {
+                alert(err);
+              }
             }}>
             Create Group
           </Button>
@@ -169,12 +173,19 @@ const TopMenu = () => {
         <Modal.Body>Are you sure? This will delete all your edits.</Modal.Body>
         <Modal.Footer>
           <Button
+            variant="secondary"
+            onClick={() => {
+              setDeleteShow(false);
+            }}>
+            Cancel
+          </Button>
+          <Button
             variant="primary"
             onClick={() => {
               setGroupDict({ ...deleteAllGroups() });
               setDeleteShow(false);
             }}>
-            Yes
+            Delete
           </Button>
         </Modal.Footer>
       </Modal>

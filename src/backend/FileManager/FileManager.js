@@ -39,6 +39,7 @@ const destroyClickedElement = (event) => {
  * Function that returns the content from the user's selected file
  *
  * @param {type} file           file blob of the user's selected file
+ * @throws an error if illegalExtension
  */
 export const openFile = (file) => {
 
@@ -59,7 +60,8 @@ export const openFile = (file) => {
     'json',
     'jpg',
     'jpeg',
-    'docx'
+    'docx',
+    'drawio'
   ];
 
   // The error will be thrown and the function will return an empty string
