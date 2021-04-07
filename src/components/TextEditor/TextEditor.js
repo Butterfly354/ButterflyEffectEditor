@@ -2,6 +2,8 @@ import React from 'react';
 import './TextEditor.css';
 import { Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import { Edit } from '../../backend/SmartUndoManager/Edit';
+import { addEdit } from '../../backend/SmartUndoManager/EditManager/EditManager';
  
 const TextEditor = () => {
     TextEditor.myRef = React.createRef();
@@ -47,6 +49,12 @@ const TextEditor = () => {
 	    }
 	    fakeSavedEdits[fakeSavedEdits.length] = temp;
 	    editStack = [];
+
+		// Creating the Edit Object	
+		let editObject = new Edit("", temp, position, now.getTime, "Default", null);
+
+		//Calling the save edit function to store the edit
+		addEdit(editObject);
 	    
 	}
 	/*
@@ -97,7 +105,7 @@ const TextEditor = () => {
 	return false;
     }
     */
-    
+
     return (
     <div className="editor">
 	<textarea
