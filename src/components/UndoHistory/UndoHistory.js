@@ -1,30 +1,44 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './UndoHistory.css';
 import Group from '../Group/Group';
 import SearchBar from '../SearchBar/SearchBar';
+import { deleteGroup } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
+import { GroupContext } from '../../GroupContext';
 
 export let clickedEdits = [];
 export let clickedGroups = [];
 
-const UndoHistory = ({ groupDict }) => (
-  <div className="main">
-    <h5>Undo History</h5>
+const UndoHistory = () => {
+  const [groupDict, setGroupDict] = useContext(GroupContext);
 
-    <div className="history">
-      <SearchBar>
-        {/*TODO: collapse group*/}
-        {Object.keys(groupDict).map((title, index) => {
-          return <Group title={title} key={index} edits={groupDict[title]} />;
-        })}
-      </SearchBar>
-    </div>
+  return (
+    <div className="main">
+      <h5>Undo History</h5>
 
-    <div className="buttonGroup">
-      <button>Move</button>
-      <button>Delete</button>
-      <button id="mainButton">Undo</button>
+      <div className="history">
+        <SearchBar>
+          {/*TODO: collapse group*/}
+          {Object.keys(groupDict).map((title) => {
+            return <Group title={title} key={title} edits={groupDict[title]} />;
+          })}
+        </SearchBar>
+      </div>
+
+      <div className="buttonGroup">
+        <button>Move</button>
+        <button
+          onClick={() => {
+            clickedGroups.forEach((group) => {
+              deleteGroup(group);
+            });
+            setGroupDict({ ...groupDict });
+          }}>
+          Delete
+        </button>
+        <button id="mainButton">Undo</button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default UndoHistory;

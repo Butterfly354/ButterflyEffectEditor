@@ -1,17 +1,31 @@
-import React, {useState} from 'react';
-import { Nav, Navbar, NavDropdown, Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
+import {
+  Nav,
+  Navbar,
+  NavDropdown,
+  Modal,
+  Button,
+  InputGroup,
+  FormControl
+} from 'react-bootstrap';
 import ActiveGroup from './ActiveGroup/ActiveGroup';
 import logo from './icons/mdi_butterfly.png';
 import { downloadFile, openFile } from '../../backend/FileManager/FileManager';
+import { createGroup } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
 import TextEditor from '../TextEditor/TextEditor.js';
+import { GroupContext } from '../../GroupContext';
 
 import './TopMenu.css';
 
-const TopMenu = ({ groupDict }) => {
-  const [smShow, setSmShow] = useState(false);
+const TopMenu = () => {
+  const [groupDict, setGroupDict] = useContext(GroupContext);
+
+  const [downloadShow, setDownloadShow] = useState(false);
+  const [groupShow, setGroupShow] = useState(false);
 
   TopMenu.myRef = React.createRef();
-  let textInput = React.createRef();
+  let fileNameInput = React.createRef();
+  TopMenu.groupNameInput = React.createRef();
 
   return (
     <div>
@@ -38,13 +52,12 @@ const TopMenu = ({ groupDict }) => {
                 try {
                   TextEditor.myRef.current.value = await openFile(fileToOpen);
                 } catch (err) {
-                  console.error("Invalid file type.");
+                  console.error('Invalid file type.');
                 }
               }}></input>
             <NavDropdown.Item>Save</NavDropdown.Item>
             <NavDropdown.Divider />
-            <NavDropdown.Item
-              onClick={() => setSmShow(true)}>
+            <NavDropdown.Item onClick={() => setDownloadShow(true)}>
               Download file
             </NavDropdown.Item>
           </NavDropdown>
@@ -53,7 +66,9 @@ const TopMenu = ({ groupDict }) => {
             <NavDropdown.Item>Change Font Size</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Group" id="collasible-nav-dropdown">
-            <NavDropdown.Item>Create New Group</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => setGroupShow(true)}>
+              Create New Group
+            </NavDropdown.Item>
             <NavDropdown.Item>Delete All Groups</NavDropdown.Item>
           </NavDropdown>
           <Nav.Link>Undo History</Nav.Link>
@@ -64,8 +79,8 @@ const TopMenu = ({ groupDict }) => {
       </Navbar>
       <Modal
         size="sm"
-        show={smShow}
-        onHide={() => setSmShow(false)}
+        show={downloadShow}
+        onHide={() => setDownloadShow(false)}
         aria-labelledby="example-modal-sizes-title-sm">
         <Modal.Header closeButton>
           <Modal.Title id="example-modal-sizes-title-sm">
@@ -75,20 +90,65 @@ const TopMenu = ({ groupDict }) => {
         <Modal.Body>
           <InputGroup size="sm" className="mb-3">
             <InputGroup.Prepend>
-              <InputGroup.Text id="inputGroup-sizing-sm">Filename</InputGroup.Text>
+              <InputGroup.Text id="inputGroup-sizing-sm">
+                Filename
+              </InputGroup.Text>
             </InputGroup.Prepend>
             <FormControl
               aria-label="Filename"
               aria-describedby="inputGroup-sizing-sm"
-              ref = {textInput}
+              ref={fileNameInput}
             />
           </InputGroup>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant ="primary" onClick={() => {
-                downloadFile(TextEditor.myRef.current.value, textInput.current.value)
-              }}>Download</Button>
-          </Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => {
+              downloadFile(
+                TextEditor.myRef.current.value,
+                fileNameInput.current.value
+              );
+            }}>
+            Download
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        size="sm"
+        show={groupShow}
+        onHide={() => setGroupShow(false)}
+        aria-labelledby="example-modal-sizes-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">
+            Create New Group
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <InputGroup size="sm" className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="inputGroup-sizing-sm">
+                Group name
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              aria-label="groupName"
+              aria-describedby="inputGroup-sizing-sm"
+              ref={TopMenu.groupNameInput}
+            />
+          </InputGroup>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => {
+              createGroup(TopMenu.groupNameInput.current.value);
+              setGroupDict({ ...groupDict });
+              setGroupShow(false);
+            }}>
+            Create Group
+          </Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
