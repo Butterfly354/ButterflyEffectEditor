@@ -28,7 +28,7 @@ const Edit = ({ edit, groupIsClicked }) => {
           }
         }
       }}>
-      <p>{edit.name}</p>
+      <p className="editName">{edit.name}</p>
     </div>
   );
 };

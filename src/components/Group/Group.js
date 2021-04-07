@@ -20,14 +20,7 @@ const Group = ({ title, edits }) => {
         {title}
       </p>
       {edits.map((edit, key) => {
-        return (
-          <Edit
-            className="edits"
-            edit={edit}
-            groupIsClicked={isClicked}
-            key={key}
-          />
-        );
+        return <Edit edit={edit} groupIsClicked={isClicked} key={key} />;
       })}
     </div>
   );

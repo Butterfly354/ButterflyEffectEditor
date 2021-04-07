@@ -11,7 +11,10 @@ import {
 import ActiveGroup from './ActiveGroup/ActiveGroup';
 import logo from './icons/mdi_butterfly.png';
 import { downloadFile, openFile } from '../../backend/FileManager/FileManager';
-import { createGroup } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
+import {
+  createGroup,
+  deleteAllGroups
+} from '../../backend/SmartUndoManager/GroupManager/GroupManager';
 import TextEditor from '../TextEditor/TextEditor.js';
 import { GroupContext } from '../../GroupContext';
 
@@ -22,10 +25,11 @@ const TopMenu = () => {
 
   const [downloadShow, setDownloadShow] = useState(false);
   const [groupShow, setGroupShow] = useState(false);
+  const [deleteShow, setDeleteShow] = useState(false);
 
-  TopMenu.myRef = React.createRef();
+  let openFileButton = React.createRef();
   let fileNameInput = React.createRef();
-  TopMenu.groupNameInput = React.createRef();
+  let groupNameInput = React.createRef();
 
   return (
     <div>
@@ -38,7 +42,7 @@ const TopMenu = () => {
             <NavDropdown.Item>New file</NavDropdown.Item>
             <NavDropdown.Item
               onClick={() => {
-                TopMenu.myRef.current.click();
+                openFileButton.current.click();
               }}>
               Open file
             </NavDropdown.Item>
@@ -46,9 +50,9 @@ const TopMenu = () => {
               type="file"
               id="input"
               style={{ display: 'none' }}
-              ref={TopMenu.myRef}
+              ref={openFileButton}
               onChange={async () => {
-                let fileToOpen = TopMenu.myRef.current.files[0];
+                let fileToOpen = openFileButton.current.files[0];
                 try {
                   TextEditor.myRef.current.value = await openFile(fileToOpen);
                 } catch (err) {
@@ -69,7 +73,9 @@ const TopMenu = () => {
             <NavDropdown.Item onClick={() => setGroupShow(true)}>
               Create New Group
             </NavDropdown.Item>
-            <NavDropdown.Item>Delete All Groups</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => setDeleteShow(true)}>
+              Delete All Groups
+            </NavDropdown.Item>
           </NavDropdown>
           <Nav.Link>Undo History</Nav.Link>
           <Nav.Link>Help</Nav.Link>
@@ -134,7 +140,7 @@ const TopMenu = () => {
             <FormControl
               aria-label="groupName"
               aria-describedby="inputGroup-sizing-sm"
-              ref={TopMenu.groupNameInput}
+              ref={groupNameInput}
             />
           </InputGroup>
         </Modal.Body>
@@ -142,11 +148,33 @@ const TopMenu = () => {
           <Button
             variant="primary"
             onClick={() => {
-              createGroup(TopMenu.groupNameInput.current.value);
+              createGroup(groupNameInput.current.value);
               setGroupDict({ ...groupDict });
               setGroupShow(false);
             }}>
             Create Group
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        size="sm"
+        show={deleteShow}
+        onHide={() => setDeleteShow(false)}
+        aria-labelledby="example-modal-sizes-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">
+            Delete All Groups
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure? This will delete all your edits.</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="primary"
+            onClick={() => {
+              setGroupDict({ ...deleteAllGroups() });
+              setDeleteShow(false);
+            }}>
+            Yes
           </Button>
         </Modal.Footer>
       </Modal>
