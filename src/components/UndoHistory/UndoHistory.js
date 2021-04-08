@@ -102,7 +102,6 @@ const UndoHistory = ({ forceUpdate }) => {
             onClick={() => {
               try {
                 //TODO: after moving edits, it should unselect everything
-                console.log(clickedEdits);
                 moveEdits(groupNameInput.current.value, clickedEdits);
                 setGroupDict(groupDict);
                 forceUpdate();
