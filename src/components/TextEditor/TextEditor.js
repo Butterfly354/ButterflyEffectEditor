@@ -22,7 +22,7 @@ const TextEditor = () => {
       <textarea
         id="textarea"
         ref={TextEditor.myRef}
-        onBlur={saveToLocalStorage}></textarea>
+        onChange={saveToLocalStorage}></textarea>
     </div>
   );
 };
