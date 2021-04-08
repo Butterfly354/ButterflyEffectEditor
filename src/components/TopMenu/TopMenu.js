@@ -81,7 +81,7 @@ const TopMenu = ({ forceUpdate }) => {
           <Nav.Link>Help</Nav.Link>
         </Nav>
         <p id="activeGroupTitle">Active Group</p>
-        <ActiveGroup groupDict={groupDict} />
+        <ActiveGroup groupDict={groupDict} forceUpdate={forceUpdate} />
       </Navbar>
       <Modal
         animation={false}

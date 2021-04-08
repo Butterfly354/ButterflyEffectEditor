@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import './ActiveGroup.css';
 
-const ActiveGroup = ({ groupDict }) => {
+const ActiveGroup = ({ groupDict, forceUpdate }) => {
   const [activeGroup, setActiveGroup] = useState('Default');
-  //TODO: change the active group when all groups are deleted, or even an individual group if that group happens to be the active one.
+
+  //change the active group when a group gets deleted if that group happens to be the active one.
+  useEffect(() => {
+    if (!(activeGroup in groupDict)) {
+      setActiveGroup('Default');
+    }
+  }, [forceUpdate]);
 
   return (
     <div className="activeDropdown">
