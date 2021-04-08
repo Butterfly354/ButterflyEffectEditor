@@ -5,7 +5,6 @@ const TextEditor = () => {
   TextEditor.myRef = React.createRef();
 
   useEffect(() => {
-    console.log(TextEditor.myRef.current.value);
     TextEditor.myRef.current.value =
       JSON.parse(localStorage.getItem('TextEditor')) || '';
   }, []);

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
 import './UndoHistory.css';
 import Group from '../Group/Group';
@@ -18,6 +18,10 @@ const UndoHistory = ({ forceUpdate }) => {
   const [moveShow, setMoveShow] = useState(false);
 
   let groupNameInput = React.createRef();
+
+  useEffect(() => {
+    localStorage.setItem('groupDict', JSON.stringify(groupDict));
+  }, [forceUpdate]);
 
   const deleteClicked = () => {
     try {
