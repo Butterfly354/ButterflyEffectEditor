@@ -1,12 +1,28 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './TextEditor.css';
 
 const TextEditor = () => {
   TextEditor.myRef = React.createRef();
 
+  useEffect(() => {
+    console.log(TextEditor.myRef.current.value);
+    TextEditor.myRef.current.value =
+      JSON.parse(localStorage.getItem('TextEditor')) || '';
+  }, []);
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem(
+      'TextEditor',
+      JSON.stringify(TextEditor.myRef.current.value)
+    );
+  };
+
   return (
     <div className="editor">
-      <textarea id="textarea" ref={TextEditor.myRef}></textarea>
+      <textarea
+        id="textarea"
+        ref={TextEditor.myRef}
+        onBlur={saveToLocalStorage}></textarea>
     </div>
   );
 };
