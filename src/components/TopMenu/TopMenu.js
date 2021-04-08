@@ -20,7 +20,7 @@ import { GroupContext } from '../../GroupContext';
 
 import './TopMenu.css';
 
-const TopMenu = () => {
+const TopMenu = ({ forceUpdate }) => {
   const [groupDict, setGroupDict] = useContext(GroupContext);
 
   const [downloadShow, setDownloadShow] = useState(false);
@@ -150,7 +150,8 @@ const TopMenu = () => {
             onClick={() => {
               try {
                 createGroup(groupNameInput.current.value);
-                setGroupDict({ ...groupDict });
+                setGroupDict(groupDict);
+                forceUpdate();
                 setGroupShow(false);
               } catch (err) {
                 alert(err);
@@ -182,7 +183,9 @@ const TopMenu = () => {
           <Button
             variant="primary"
             onClick={() => {
-              setGroupDict({ ...deleteAllGroups() });
+              deleteAllGroups();
+              setGroupDict(groupDict);
+              forceUpdate();
               setDeleteShow(false);
             }}>
             Delete

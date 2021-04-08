@@ -13,7 +13,7 @@ import { GroupContext } from '../../GroupContext';
 export let clickedEdits = [];
 export let clickedGroups = [];
 
-const UndoHistory = () => {
+const UndoHistory = ({ forceUpdate }) => {
   const [groupDict, setGroupDict] = useContext(GroupContext);
   const [moveShow, setMoveShow] = useState(false);
 
@@ -21,15 +21,19 @@ const UndoHistory = () => {
 
   const deleteClicked = () => {
     try {
-      console.log(clickedGroups);
       if (clickedGroups[0]) {
         clickedGroups.forEach((group) => {
           deleteGroup(group);
-          //if clickedEdits were deleted in clickedGroups
-          console.log(clickedEdits);
+          //if clickedEdits were deleted in clickedGroup
           if (clickedEdits[0]) {
             clickedEdits.forEach((edit) => {
-              if (edit.groupName === group) clickedEdits.pop(edit);
+              //remove edit from the clickedEdits
+              if (edit.groupName === group) {
+                const index = clickedEdits.indexOf(edit);
+                if (index > -1) {
+                  clickedEdits.splice(index, 1);
+                }
+              }
             });
           }
         });
@@ -39,7 +43,8 @@ const UndoHistory = () => {
         deleteEdits(clickedEdits);
         clickedEdits = [];
       }
-      setGroupDict({ ...groupDict });
+      setGroupDict(groupDict);
+      forceUpdate();
     } catch (err) {
       alert(err);
     }
@@ -95,7 +100,8 @@ const UndoHistory = () => {
                 //TODO: after moving edits, it should unselect everything
                 console.log(clickedEdits);
                 moveEdits(groupNameInput.current.value, clickedEdits);
-                setGroupDict({ ...groupDict });
+                setGroupDict(groupDict);
+                forceUpdate();
                 setMoveShow(false);
               } catch (err) {
                 alert(err);

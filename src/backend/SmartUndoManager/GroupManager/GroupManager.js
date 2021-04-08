@@ -95,5 +95,4 @@ export const deleteAllGroups = () => {
       groupDictionary[groupName] = [];
     }
   }
-  return groupDictionary;
 };
