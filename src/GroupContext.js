@@ -1,4 +1,4 @@
-import React, { useState, createContext, useEffect } from 'react';
+import React, { useState, createContext } from 'react';
 import { groupDictionary } from './backend/SmartUndoManager/SmartUndoManager';
 
 export const GroupContext = createContext();
