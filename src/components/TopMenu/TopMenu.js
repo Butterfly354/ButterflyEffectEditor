@@ -59,7 +59,6 @@ const TopMenu = ({ forceUpdate }) => {
                   alert(err);
                 }
               }}></input>
-            <NavDropdown.Item>Save</NavDropdown.Item>
             <NavDropdown.Divider />
             <NavDropdown.Item onClick={() => setDownloadShow(true)}>
               Download file
@@ -67,7 +66,8 @@ const TopMenu = ({ forceUpdate }) => {
           </NavDropdown>
 
           <NavDropdown title="Font" id="collasible-nav-dropdown">
-            <NavDropdown.Item>Change Font Size</NavDropdown.Item>
+            <NavDropdown.Item>Increase Font Size</NavDropdown.Item>
+            <NavDropdown.Item>Decrease Font Size</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Group" id="collasible-nav-dropdown">
             <NavDropdown.Item onClick={() => setGroupShow(true)}>
@@ -77,8 +77,6 @@ const TopMenu = ({ forceUpdate }) => {
               Delete All Groups
             </NavDropdown.Item>
           </NavDropdown>
-          <Nav.Link>Undo History</Nav.Link>
-          <Nav.Link>Help</Nav.Link>
         </Nav>
         <p id="activeGroupTitle">Active Group</p>
         <ActiveGroup groupDict={groupDict} forceUpdate={forceUpdate} />
