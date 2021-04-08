@@ -62,7 +62,14 @@ const UndoHistory = ({ forceUpdate }) => {
         <SearchBar>
           {/*TODO: collapse group*/}
           {Object.keys(groupDict).map((title) => {
-            return <Group title={title} key={title} edits={groupDict[title]} />;
+            return (
+              <Group
+                title={title}
+                key={title}
+                edits={groupDict[title]}
+                forceUpdate={forceUpdate}
+              />
+            );
           })}
         </SearchBar>
       </div>
@@ -102,10 +109,12 @@ const UndoHistory = ({ forceUpdate }) => {
             variant="primary"
             onClick={() => {
               try {
-                //TODO: after moving edits, it should unselect everything
                 moveEdits(groupNameInput.current.value, clickedEdits);
                 setGroupDict(groupDict);
                 forceUpdate();
+                //after moving edits, it unselects everything
+                clickedEdits = [];
+                clickedGroups = [];
                 setMoveShow(false);
               } catch (err) {
                 alert(err);
