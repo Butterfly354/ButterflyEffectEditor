@@ -73,6 +73,7 @@ const UndoHistory = ({ forceUpdate }) => {
         <button id="mainButton">Undo</button>
       </div>
       <Modal
+        animation={false}
         size="sm"
         show={moveShow}
         onHide={() => setMoveShow(false)}

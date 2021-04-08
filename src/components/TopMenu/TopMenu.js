@@ -84,6 +84,7 @@ const TopMenu = ({ forceUpdate }) => {
         <ActiveGroup groupDict={groupDict} />
       </Navbar>
       <Modal
+        animation={false}
         size="sm"
         show={downloadShow}
         onHide={() => setDownloadShow(false)}
@@ -121,6 +122,7 @@ const TopMenu = ({ forceUpdate }) => {
         </Modal.Footer>
       </Modal>
       <Modal
+        animation={false}
         size="sm"
         show={groupShow}
         onHide={() => setGroupShow(false)}
@@ -162,6 +164,7 @@ const TopMenu = ({ forceUpdate }) => {
         </Modal.Footer>
       </Modal>
       <Modal
+        animation={false}
         size="sm"
         show={deleteShow}
         onHide={() => setDeleteShow(false)}
