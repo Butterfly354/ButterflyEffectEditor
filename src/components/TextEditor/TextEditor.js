@@ -1,16 +1,27 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './TextEditor.css';
-import { Editor, EditorState } from 'draft-js';
-import 'draft-js/dist/Draft.css';
 
 const TextEditor = () => {
-  const [editorState, setEditorState] = React.useState(() =>
-    EditorState.createEmpty()
-  );
+  TextEditor.myRef = React.createRef();
+
+  useEffect(() => {
+    TextEditor.myRef.current.value =
+      JSON.parse(localStorage.getItem('TextEditor')) || '';
+  }, []);
+
+  const saveToLocalStorage = () => {
+    localStorage.setItem(
+      'TextEditor',
+      JSON.stringify(TextEditor.myRef.current.value)
+    );
+  };
 
   return (
     <div className="editor">
-      <Editor editorState={editorState} onChange={setEditorState} />
+      <textarea
+        id="textarea"
+        ref={TextEditor.myRef}
+        onChange={saveToLocalStorage}></textarea>
     </div>
   );
 };

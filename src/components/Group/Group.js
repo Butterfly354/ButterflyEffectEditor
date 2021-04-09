@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Group.css';
 import Edit from './Edit/Edit';
 import { clickedGroups } from '../UndoHistory/UndoHistory';
 
-const Group = ({ title, edits }) => {
+const Group = ({ title, edits, forceUpdate }) => {
   const [isClicked, setIsClicked] = useState(false);
+
+  useEffect(() => {
+    //after moving or deleting edits/groups, it unselects everything
+    setIsClicked(false);
+  }, [forceUpdate]);
+
   return (
     <div className={isClicked ? 'group active' : 'group'}>
       <p
@@ -12,24 +18,15 @@ const Group = ({ title, edits }) => {
         onClick={() => {
           if (!isClicked) {
             clickedGroups.push(title);
-            console.log(clickedGroups);
           } else if (isClicked) {
             clickedGroups.pop(title);
-            console.log(clickedGroups);
           }
           setIsClicked(!isClicked);
         }}>
         {title}
       </p>
       {edits.map((edit, key) => {
-        return (
-          <Edit
-            className="edits"
-            edit={edit}
-            groupIsClicked={isClicked}
-            key={key}
-          />
-        );
+        return <Edit edit={edit} groupIsClicked={isClicked} key={key} />;
       })}
     </div>
   );

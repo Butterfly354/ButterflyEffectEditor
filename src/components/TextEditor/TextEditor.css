@@ -3,3 +3,13 @@
   border: thin solid black;
   margin: 0;
 }
+
+textarea {
+  width: 100%;
+  padding-bottom: 70%;
+  padding-left: 7px;
+}
+
+textarea:focus {
+  outline: none;
+}

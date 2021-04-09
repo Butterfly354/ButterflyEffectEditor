@@ -9,10 +9,8 @@ const Edit = ({ edit, groupIsClicked }) => {
     //if it group is clicked, but edit wasn't, add edit
     if (groupIsClicked && !isClicked) {
       clickedEdits.push(edit);
-      console.log(clickedEdits);
     } else if (!groupIsClicked) {
       clickedEdits.pop(edit);
-      console.log(clickedEdits);
     }
   }, [groupIsClicked]);
 
@@ -25,14 +23,12 @@ const Edit = ({ edit, groupIsClicked }) => {
           //if it wasn't clicked, it will be now
           if (!isClicked) {
             clickedEdits.push(edit);
-            console.log(clickedEdits);
           } else {
             clickedEdits.pop(edit);
-            console.log(clickedEdits);
           }
         }
       }}>
-      <p>{edit.name}</p>
+      <p className="editName">{edit.name}</p>
     </div>
   );
 };
