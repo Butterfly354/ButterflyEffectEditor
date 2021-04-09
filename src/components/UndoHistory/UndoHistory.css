@@ -67,3 +67,15 @@
   font-weight: bold;
   padding: 3px 7px;
 }
+
+/* This is for the arrow (the CustomToggle that was created)*/
+#arrow {
+  height: 15%;
+  width: 12%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#arrow:active {
+  transform: rotate(-90deg);
+}

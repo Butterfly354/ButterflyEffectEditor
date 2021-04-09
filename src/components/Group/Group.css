@@ -1,5 +1,12 @@
+/* changed margins*/
 #title {
-  margin: 14px 0px 0px 40px;
+  /* margin: 14px 0px 0px 40px; */
+  margin: 0px;
+}
+
+/* This is so that the group name appears next to the arrow*/
+#div-title{
+  display: inline-block;
 }
 
 .active {
@@ -9,3 +16,15 @@
 .group {
   cursor: pointer;
 }
+
+/* for customtoggle in group*/
+/* #arrow {
+  height: 15%;
+  width: 12%;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+.activeArrow {
+  transform: rotate(-90deg);
+} */
