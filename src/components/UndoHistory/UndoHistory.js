@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Modal, Button, InputGroup, FormControl, Accordion, useAccordionToggle, Image } from 'react-bootstrap';
+import { Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
 import './UndoHistory.css';
-import Group, {GroupName} from '../Group/Group';
+import Group from '../Group/Group';
 import SearchBar from '../SearchBar/SearchBar';
 import {
   deleteEdits,
@@ -9,7 +9,6 @@ import {
 } from '../../backend/SmartUndoManager/EditManager/EditManager';
 import { deleteGroup } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
 import { GroupContext } from '../../GroupContext';
-import arrow from './angle-down.png';
 
 export let clickedEdits = [];
 export let clickedGroups = [];
@@ -19,14 +18,6 @@ const UndoHistory = ({ forceUpdate }) => {
   const [moveShow, setMoveShow] = useState(false);
 
   let groupNameInput = React.createRef();
-
-  function CustomToggle({eventKey}) {
-    const decoratedOnClick = useAccordionToggle(eventKey);
-  
-    return (
-      <Image src= {arrow} onClick={decoratedOnClick} id="arrow"></Image>
-    );
-  } 
 
   useEffect(() => {
     localStorage.setItem('groupDict', JSON.stringify(groupDict));
@@ -71,23 +62,14 @@ const UndoHistory = ({ forceUpdate }) => {
         <SearchBar>
           {/*TODO: collapse group*/}
           {Object.keys(groupDict).map((title) => {
-             return (
-              <Accordion key={title} defaultActiveKey="1">
-                <CustomToggle eventKey="0"></CustomToggle>
-                  <GroupName title={title}></GroupName>
-                <Accordion.Collapse eventKey="0">
-                  <Group edits={groupDict[title]} forceUpdate={forceUpdate}/>
-                </Accordion.Collapse>
-              </Accordion>
+            return (
+              <Group
+                title={title}
+                key={title}
+                edits={groupDict[title]}
+                forceUpdate={forceUpdate}
+              />
             );
-            // return (
-            //   <Group
-            //     title={title}
-            //     key={title}
-            //     edits={groupDict[title]}
-            //     forceUpdate={forceUpdate}
-            //   />
-            // );
           })}
         </SearchBar>
       </div>

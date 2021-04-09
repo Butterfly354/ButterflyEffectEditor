@@ -1,87 +1,60 @@
 import React, { useState, useEffect } from 'react';
 import './Group.css';
 import Edit from './Edit/Edit';
+import { Accordion, useAccordionToggle, Image } from 'react-bootstrap';
 import { clickedGroups } from '../UndoHistory/UndoHistory';
-
-// for accordion
-// import {Accordion, useAccordionToggle, Image} from 'react-bootstrap';
-// import arrow from './angle-down.png';
+import arrow from './angle-down.png';
 
 const Group = ({ title, edits, forceUpdate }) => {
   const [isClicked, setIsClicked] = useState(false);
+  const [ourEventKey, setOurEventKey] = useState(0);
 
   useEffect(() => {
     //after moving or deleting edits/groups, it unselects everything
     setIsClicked(false);
   }, [forceUpdate]);
 
-  return (
-    // <Accordion key={title}>
-      // <CustomToggle eventKey="0"></CustomToggle>
-        <div className={isClicked ? 'group active' : 'group'}>
-          {/* <p
-            id="title"
-            onClick={() => {
-              if (!isClicked) {
-                clickedGroups.push(title);
-              } else if (isClicked) {
-                clickedGroups.pop(title);
-              }
-              setIsClicked(!isClicked);
-            }}>
-            {title}
-          </p> */}
-          {/* <Accordion.Collapse eventKey="0"> */}
-            {edits.map((edit, key) => {
-                return <Edit edit={edit} groupIsClicked={isClicked} key={key} />;
-            })}
-          {/* </Accordion.Collapse>   */}
-        </div>
-    // </Accordion>
-  );
+  function CustomToggle({ eventKey }) {
+    const decoratedOnClick = useAccordionToggle(eventKey);
 
-  // What was originally here
-  // return (
-  //   <div className={isClicked ? 'group active' : 'group'}>
-  //     <p
-  //       id="title"
-  //       onClick={() => {
-  //         if (!isClicked) {
-  //           clickedGroups.push(title);
-  //         } else if (isClicked) {
-  //           clickedGroups.pop(title);
-  //         }
-  //         setIsClicked(!isClicked);
-  //       }}>
-  //       {title}
-  //     </p>
-  //     {edits.map((edit, key) => {
-  //       return <Edit edit={edit} groupIsClicked={isClicked} key={key} />;
-  //     })}
-  //   </div>
-  // );
+    return (
+      <Image
+        src={arrow}
+        onClick={() => {
+          decoratedOnClick();
+          setOurEventKey(ourEventKey === 0 ? 1 : 0);
+        }}
+        id="arrow"
+        className={ourEventKey === 0 ? 'activeArrow' : 'inactive'}></Image>
+    );
+  }
+
+  return (
+    <Accordion key={title} defaultActiveKey="0">
+      <CustomToggle eventKey="0"></CustomToggle>
+      <div className={isClicked ? 'group active' : 'group'}>
+        <p
+          id="title"
+          onClick={() => {
+            if (!isClicked) {
+              clickedGroups.push(title);
+            } else if (isClicked) {
+              clickedGroups.pop(title);
+            }
+            setIsClicked(!isClicked);
+          }}>
+          {title}
+        </p>
+        <Accordion.Collapse eventKey="0">
+          <div>
+            {edits.map((edit, key) => {
+              return <Edit edit={edit} groupIsClicked={isClicked} key={key} />;
+            })}
+          </div>
+        </Accordion.Collapse>
+      </div>
+    </Accordion>
+  );
 };
 
-// Added this to extract the groupName for the accordion in the undohistory.js
-const GroupName = ({title}) => {
-  const [titleIsClicked, setTitleIsClicked] = useState(false);
-  return (
-    <div className={titleIsClicked ? 'group active' : 'group'} id="div-title">
-    <p
-      id="title"
-      onClick={() => {
-        if (!titleIsClicked) {
-          clickedGroups.push(title);
-        } else if (titleIsClicked) {
-          clickedGroups.pop(title);
-        }
-        setTitleIsClicked(!titleIsClicked);
-      }}>
-      {title}
-    </p>
-    </div>
-  );
-}
-
 export default Group;
-export {GroupName};
