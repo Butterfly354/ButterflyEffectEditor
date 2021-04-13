@@ -58,6 +58,10 @@ const TopMenu = ({ forceUpdate }) => {
                 let fileToOpen = openFileButton.current.files[0];
                 try {
                   TextEditor.myRef.current.value = await openFile(fileToOpen);
+                  localStorage.setItem(
+                    'TextEditor',
+                    JSON.stringify(TextEditor.myRef.current.value)
+                  );
                 } catch (err) {
                   alert(err);
                 }
@@ -247,6 +251,10 @@ const TopMenu = ({ forceUpdate }) => {
                   fileNameInput.current.value
                 );
               TextEditor.myRef.current.value = '';
+              localStorage.setItem(
+                'TextEditor',
+                JSON.stringify(TextEditor.myRef.current.value)
+              );
               deleteAllGroups();
               setGroupDict(groupDict);
               forceUpdate();
