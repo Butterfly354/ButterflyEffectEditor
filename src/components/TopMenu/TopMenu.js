@@ -17,8 +17,8 @@ import {
 } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
 import TextEditor from '../TextEditor/TextEditor.js';
 import { GroupContext } from '../../GroupContext';
-
 import './TopMenu.css';
+import FontSizeChanger from 'react-font-size-changer';
 
 const TopMenu = ({ forceUpdate }) => {
   const [groupDict, setGroupDict] = useContext(GroupContext);
@@ -66,7 +66,16 @@ const TopMenu = ({ forceUpdate }) => {
           </NavDropdown>
 
           <NavDropdown title="Font" id="collasible-nav-dropdown">
-            <NavDropdown.Item>Increase Font Size</NavDropdown.Item>
+            <NavDropdown.Item onClick={() => console.log('hi')}>
+              Increase Font Size
+              {/* <FontSizeChanger
+                targets={['textarea']}
+                options={{
+                  stepSize: 3,
+                  range: 6
+                }}
+              /> */}
+            </NavDropdown.Item>
             <NavDropdown.Item>Decrease Font Size</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title="Group" id="collasible-nav-dropdown">
@@ -77,6 +86,25 @@ const TopMenu = ({ forceUpdate }) => {
               Delete All Groups
             </NavDropdown.Item>
           </NavDropdown>
+          <FontSizeChanger
+            targets={['textarea']}
+            options={{
+              stepSize: 3,
+              range: 6
+            }}
+            customButtons={{
+              up: <span style={{ fontSize: '34px' }}>A</span>,
+              down: <span style={{ fontSize: '22px' }}>A</span>,
+              style: {
+                backgroundColor: 'grey',
+                color: 'black',
+                WebkitBoxSizing: 'border-box',
+                WebkitBorderRadius: '5px',
+                width: '40px'
+              },
+              buttonsMargin: 10
+            }}
+          />
         </Nav>
         <p id="activeGroupTitle">Active Group</p>
         <ActiveGroup groupDict={groupDict} forceUpdate={forceUpdate} />
