@@ -1,42 +1,12 @@
-to start working on this repo:
+You will find here the projet that I made which countains 4 tests plus a an additonal 
+text file that you can use to try the project on the Selenium IDE extension on your browser.
 
-install npm
+-Create groups and delete all groups
 
-1. create your own branch
-2. push any changes to that branch
-3. create a PR from that branch
+-Create one group and delete a selected group
 
-to run the code:
-```npm start``` in the terminal
-```npm test``` to run any tests inside .test.js files
+-Create one Group and delete
 
+-Open FIle and Download File
 
-some useful git commands:
-
-to start off:
-
-```
-git init
-git clone https://github.com/Butterfly354/ButterflyEffectEditor.git
-npm install
-```
-
-creating a new branch:
-
-```
-git fetch origin
-git branch FEATURE_NAME origin/main
-git push -u origin FEATURE_NAME
-git checkout FEATURE_NAME
-git pull
-```
-
-correct way to create a PR:
-
-```
-git add .
-git commit -m"useful message"
-git push origin BRANCH_NAME
-```
-
-on github: go to original repo, new pull request, select your branch, put reviewers, put description
+This is not a final version, might have to try it in a different browser, while in chrome it seems the browser was block Selenium from running the tests completly.
