@@ -68,13 +68,6 @@ const TopMenu = ({ forceUpdate }) => {
           <NavDropdown title="Font" id="collasible-nav-dropdown">
             <NavDropdown.Item onClick={() => console.log('hi')}>
               Increase Font Size
-              {/* <FontSizeChanger
-                targets={['textarea']}
-                options={{
-                  stepSize: 3,
-                  range: 6
-                }}
-              /> */}
             </NavDropdown.Item>
             <NavDropdown.Item>Decrease Font Size</NavDropdown.Item>
           </NavDropdown>
