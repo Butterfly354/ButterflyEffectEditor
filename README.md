@@ -1,12 +1,20 @@
-You will find here the projet that I made which countains 4 tests plus a an additonal 
-text file that you can use to try the project on the Selenium IDE extension on your browser.
 
--Create groups and delete all groups
+Here are the tests that I recorded.It is a predefined sequence of actions that must be performed when the UI is in its original state first. 
 
--Create one group and delete a selected group
+-Creating a single group and deleting a single group
+-Creating group1
+-Creating group2
+-Deleting all groups 
+-Opening and downloading a file
 
--Create one Group and delete
+For the test involving the open file and downloading file options, you have to do the following in order to let the browser read your text file during the selenium run test.
 
--Open FIle and Download File
+On Chrome you can go to: Window > More Tools > Extensions > Selenium IDE > Details
 
-This is not a final version, might have to try it in a different browser, while in chrome it seems the browser was block Selenium from running the tests completly.
+Then turn on the 'Allow access to file URLs' option.
+
+
+You have to select the line where td=input with the value that shows the path of your text file and then on the value input field you have to manually enter the path
+of your text file.
+
+selenium will not close the pop up windown from the file explorer you have to do it yourself  during the run test.
