@@ -1,5 +1,6 @@
 
-Here are the tests that I recorded.It is a predefined sequence of actions that must be performed when the UI is in its original state first. 
+Here are the tests that I recorded.It is a predefined sequence of actions that must be performed when the UI is in its original state first. I added my own text file 
+for the test but you can used whatever.
 
 -Creating a single group and deleting a single group
 
