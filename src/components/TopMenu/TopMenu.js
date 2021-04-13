@@ -228,12 +228,16 @@ const TopMenu = ({ forceUpdate }) => {
             variant="secondary"
             onClick={() => {
               TextEditor.myRef.current.value = '';
+              localStorage.setItem(
+                'TextEditor',
+                JSON.stringify(TextEditor.myRef.current.value)
+              );
               deleteAllGroups();
               setGroupDict(groupDict);
               forceUpdate();
               setNewShow(false);
             }}>
-            Delete File
+            No
           </Button>
           <Button
             variant="primary"
