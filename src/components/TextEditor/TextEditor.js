@@ -26,27 +26,30 @@ export const  applyEdits = (edits) => {
     }
 }
 function prepareForQuery(s1,s2){
-    for (let i = 0; i < s2.length; i++){
-	let val = s2[i];
+    var s1, s2;
+    console.log(s1 + "\n\n" + s2);
+
+    for (let i = 0; i < s1.length; i++){
+	let val = s1[i];
 	switch (val){
-	case " ": s1[i] = "' '";break;
-	case ",": s1[i] = "','";break;
+	case " ":  s1[i] = "' '";break;
+	case ",":  s1[i] = "','";break;
 	case "\n": s1[i] = "'\n'";break;
 	case "\'": s1[i] = "\"\'\"";break;
 	case "\"": s1[i] = "'\"'";break;
-	case "?": s1[i] = "'?'";break;
-	case "%": s1[i] = "'%'";break;
-	case "-": s1[i] = "'-'";break;
-	case ":": s1[i] = "':'";break;
-	case ";": s1[i] = "';'";break;
-	case ".": s1[i] = "'.'";break;
-	case "+": s1[i] = "'+'";break;
-	case "_": s1[i] = "'_'";break;
-	case "(": s1[i] = "'('";break;
-	case ")": s1[i] = "')'";break;
-	case "!": s1[i] = "'!'";break;
-	case "@": s1[i] = "'@'";break;
-	case "/": s1[i] = "'/'";break;
+	case "?":  s1[i] = "'?'";break;
+	case "%":  s1[i] = "'%'";break;
+	case "-":  s1[i] = "'-'";break;
+	case ":":  s1[i] = "':'";break;
+	case ";":  s1[i] = "';'";break;
+	case ".":  s1[i] = "'.'";break;
+	case "+":  s1[i] = "'+'";break;
+	case "_":  s1[i] = "'_'";break;
+	case "(":  s1[i] = "'('";break;
+	case ")":  s1[i] = "')'";break;
+	case "!":  s1[i] = "'!'";break;
+	case "@":  s1[i] = "'@'";break;
+	case "/":  s1[i] = "'/'";break;
 	case "\\": s1[i] = "'\\'";break;
 	default:
 	}
@@ -54,28 +57,29 @@ function prepareForQuery(s1,s2){
     for (let i = 0; i < s2.length; i++){		
 	let val = s2[i];
 	switch (val){
-	case " ": s2[i] = "' '";break;
-	case ",": s2[i] = "','";break;
+	case " ":  s2[i] = "' '";break;
+	case ",":  s2[i] = "','";break;
 	case "\n": s2[i] = "'\n'";break;
 	case "\'": s2[i] = "\"\'\"";break;
 	case "\"": s2[i] = "'\"'";break;
-	case "?": s2[i] = "'?'";break;
-	case "%": s2[i] = "'%'";break;
-	case "-": s2[i] = "'-'";break;
-	case ":": s2[i] = "':'";break;
-	case ";": s2[i] = "';'";break;
-	case ".": s2[i] = "'.'";break;
-	case "+": s2[i] = "'+'";break;
-	case "_": s2[i] = "'_'";break;
-	case "(": s2[i] = "'('";break;
-	case ")": s2[i] = "')'";break;
-	case "!": s2[i] = "'!'";break;
-	case "@": s2[i] = "'@'";break;
-	case "/": s2[i] = "'/'";break;
+	case "?":  s2[i] = "'?'";break;
+	case "%":  s2[i] = "'%'";break;
+	case "-":  s2[i] = "'-'";break;
+	case ":":  s2[i] = "':'";break;
+	case ";":  s2[i] = "';'";break;
+	case ".":  s2[i] = "'.'";break;
+	case "+":  s2[i] = "'+'";break;
+	case "_":  s2[i] = "'_'";break;
+	case "(":  s2[i] = "'('";break;
+	case ")":  s2[i] = "')'";break;
+	case "!":  s2[i] = "'!'";break;
+	case "@":  s2[i] = "'@'";break;
+	case "/":  s2[i] = "'/'";break;
 	case "\\": s2[i] = "'\\'";break;
 	default:
 	}
     }
+    
     return [s1,s2];
 }
 
@@ -306,8 +310,8 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		 * Will remove problematic characters from the document character sets
 		 * and replace them with prolog syntax friendly equivilents.
 		 */
-		var docs = prepareForQuery(lastDoc, moddedDoc);
-		
+		var formattedDocs = prepareForQuery(lastDoc, moddedDoc);
+
 		/*
 		 * Depending on which character set is greater in length, it will set the goal
 		 * to query with the longer one first, as I have written the set difference function
@@ -316,12 +320,12 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		 */
 		if (TextEditor.myRef.current.value.length - canvasSize > 0){
 		    editType = "add";
-		    goal = "diff(["+docs[1]+"],["+docs[0]+"],S).";
+		    goal = "diff(["+formattedDocs[1]+"],["+formattedDocs[0]+"],S).";
 		}else{
 		    editType = "remove";
-		    goal = "diff(["+docs[0]+"],["+docs[1]+"],S).";
+		    goal = "diff(["+formattedDocs[0]+"],["+formattedDocs[1]+"],S).";
 		}
-		lastDoc = docs[1];
+		lastDoc = formattedDocs[1];
 		console.log(goal);
 		/*
 		 * Consults the prolog program itself with tau-prolog, a prolog interpreter written in js,
