@@ -307,57 +307,8 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		 * Will remove problematic characters from the document character sets
 		 * and replace them with prolog syntax friendly equivilents.
 		 */
-		for (let i = 0; i < lastDoc.length; i++){
-		    let val = lastDoc[i];
-		    switch (val){
-		    case " ": lastDoc[i] = "' '";break;
-		    case ",": lastDoc[i] = "','";break;
-		    case "\n": lastDoc[i] = "'\n'";break;
-		    case "\'": lastDoc[i] = "\"\'\"";break;
-		    case "\"": lastDoc[i] = "'\"'";break;
-		    case "?": lastDoc[i] = "'?'";break;
-		    case "%": lastDoc[i] = "'%'";break;
-		    case "-": lastDoc[i] = "'-'";break;
-		    case ":": lastDoc[i] = "':'";break;
-		    case ";": lastDoc[i] = "';'";break;
-		    case ".": lastDoc[i] = "'.'";break;
-		    case "+": lastDoc[i] = "'+'";break;
-		    case "_": lastDoc[i] = "'_'";break;
-		    case "(": lastDoc[i] = "'('";break;
-		    case ")": lastDoc[i] = "')'";break;
-		    case "!": lastDoc[i] = "'!'";break;
-		    case "@": lastDoc[i] = "'@'";break;
-		    case "/": lastDoc[i] = "'/'";break;
-		    case "\\": lastDoc[i] = "'\\'";break;
-		    default:
-		    }
-		}
-		for (let i = 0; i < moddedDoc.length; i++){		
-		    let val = moddedDoc[i];
-		    switch (val){
-		    case " ": moddedDoc[i] = "' '";break;
-		    case ",": moddedDoc[i] = "','";break;
-		    case "\n": moddedDoc[i] = "'\n'";break;
-		    case "\'": moddedDoc[i] = "\"\'\"";break;
-		    case "\"": moddedDoc[i] = "'\"'";break;
-		    case "?": moddedDoc[i] = "'?'";break;
-		    case "%": moddedDoc[i] = "'%'";break;
-		    case "-": moddedDoc[i] = "'-'";break;
-		    case ":": moddedDoc[i] = "':'";break;
-		    case ";": moddedDoc[i] = "';'";break;
-		    case ".": moddedDoc[i] = "'.'";break;
-		    case "+": moddedDoc[i] = "'+'";break;
-		    case "_": moddedDoc[i] = "'_'";break;
-		    case "(": moddedDoc[i] = "'('";break;
-		    case ")": moddedDoc[i] = "')'";break;
-		    case "!": moddedDoc[i] = "'!'";break;
-		    case "@": moddedDoc[i] = "'@'";break;
-		    case "/": moddedDoc[i] = "'/'";break;
-		    case "\\": moddedDoc[i] = "'\\'";break;
-		    default:
-		    }
-		}
-
+		var docs = prepareForQuery(lastDoc, moddedDoc);
+		
 		/*
 		 * Depending on which character set is greater in length, it will set the goal
 		 * to query with the longer one first, as I have written the set difference function
@@ -366,12 +317,12 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		 */
 		if (TextEditor.myRef.current.value.length - canvasSize > 0){
 		    editType = "add";
-		    goal = "diff(["+moddedDoc+"],["+lastDoc+"],S).";
+		    goal = "diff(["+docs[1]+"],["+docs[0]+"],S).";
 		}else{
 		    editType = "remove";
-		    goal = "diff(["+lastDoc+"],["+moddedDoc+"],S).";
+		    goal = "diff(["+docs[0]+"],["+docs[1]+"],S).";
 		}
-		lastDoc = moddedDoc;
+		lastDoc = docs[1];
 		console.log(goal);
 		/*
 		 * Consults the prolog program itself with tau-prolog, a prolog interpreter written in js,
