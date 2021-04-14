@@ -5,7 +5,6 @@
  * @param {type} fileName            User's input for the fileName
  */
 export const downloadFile = (textInput, fileName) => {
-  
   //If fileName is empty, it is assigned "Butterfly" as a default name
   if (fileName === '') {
     fileName = 'Butterfly';
