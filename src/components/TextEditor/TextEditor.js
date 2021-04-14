@@ -1,6 +1,5 @@
 import React, {useEffect, useContext} from 'react';
 import './TextEditor.css';
-import 'draft-js/dist/Draft.css';
 import { Edit } from '../../backend/SmartUndoManager/Edit';
 import { addEdit } from '../../backend/SmartUndoManager/EditManager/EditManager';
 import { currentActiveGroup } from '../TopMenu/ActiveGroup/ActiveGroup.js';

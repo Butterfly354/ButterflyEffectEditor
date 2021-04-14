@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-bootstrap';
 import './ActiveGroup.css';
-export let currentActiveGroup = 'Default'; // for testing I think?
+export let currentActiveGroup = 'Default';
 
 const ActiveGroup = ({ groupDict, forceUpdate }) => {
   const [activeGroup, setActiveGroup] = useState('Default');
