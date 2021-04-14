@@ -79,7 +79,7 @@ function prepareForQuery(s1,s2){
 	default:
 	}
     }
-    console.log(s1 + "\n\n" + s2);
+    
     return [s1,s2];
 }
 
@@ -312,7 +312,6 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		 */
 		var formattedDocs = prepareForQuery(lastDoc, moddedDoc);
 
-		console.log(formattedDocs);
 		/*
 		 * Depending on which character set is greater in length, it will set the goal
 		 * to query with the longer one first, as I have written the set difference function
