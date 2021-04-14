@@ -1,4 +1,15 @@
-Here are the tests that I recorded. It is a predefined sequence of actions that must be performed when the UI is in its original state first.
+To run the Selenium tests:
+
+1. install selenium IDE for chrome https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en
+
+2. choose Open an existing project
+
+3. open the ButterflyUI.side project from the Selenium branch from our repo.
+
+4. you can run the tests inside the project
+
+
+Here are the recorded tests. It is a predefined sequence of actions that must be performed when the UI is in its original state first.
 
 -Creating a single group and deleting a single group
 
