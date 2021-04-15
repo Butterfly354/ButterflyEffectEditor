@@ -52,9 +52,8 @@ test('deleting a group works', () => {
 });
 
 test('deleting the default group throws', () => {
-  expect(() => {
-    deleteGroup('Default');
-  }).toThrow(`Can't delete the Default group.`);
+  deleteGroup('Default');
+  expect(findGroupEdits('Default')).toStrictEqual([]);
 });
 
 test('undoing a group works', () => {

@@ -15,6 +15,7 @@ import {
   createGroup,
   deleteAllGroups
 } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
+import { deleteAllEdits } from '../../backend/SmartUndoManager/EditManager/EditManager';
 import TextEditor from '../TextEditor/TextEditor.js';
 import { GroupContext } from '../../GroupContext';
 import './TopMenu.css';
@@ -26,6 +27,7 @@ const TopMenu = ({ forceUpdate }) => {
   const [downloadShow, setDownloadShow] = useState(false);
   const [groupShow, setGroupShow] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false);
+  const [deleteEditShow, setDeleteEditShow] = useState(false);
   const [newShow, setNewShow] = useState(false);
 
   let openFileButton = React.createRef();
@@ -99,6 +101,9 @@ const TopMenu = ({ forceUpdate }) => {
             </NavDropdown.Item>
             <NavDropdown.Item onClick={() => setDeleteShow(true)}>
               Delete All Groups
+            </NavDropdown.Item>
+            <NavDropdown.Item onClick={() => setDeleteEditShow(true)}>
+              Delete All Edits
             </NavDropdown.Item>
           </NavDropdown>
         </Nav>
@@ -212,6 +217,38 @@ const TopMenu = ({ forceUpdate }) => {
               setGroupDict(groupDict);
               forceUpdate();
               setDeleteShow(false);
+            }}>
+            Delete
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <Modal
+        animation={false}
+        size="sm"
+        show={deleteEditShow}
+        onHide={() => setDeleteEditShow(false)}
+        aria-labelledby="example-modal-sizes-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">
+            Delete All Groups
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure? This will delete all your edits.</Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setDeleteEditShow(false);
+            }}>
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={() => {
+              deleteAllEdits();
+              setGroupDict(groupDict);
+              forceUpdate();
+              setDeleteEditShow(false);
             }}>
             Delete
           </Button>
