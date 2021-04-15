@@ -10,7 +10,7 @@ import {
 import { deleteGroup } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
 import { GroupContext } from '../../GroupContext';
 
-import {applyEdits } from '../TextEditor/TextEditor.js';
+import { applyEdits } from '../TextEditor/TextEditor.js';
 
 export let clickedEdits = [];
 export let clickedGroups = [];
@@ -43,7 +43,6 @@ const UndoHistory = ({ forceUpdate }) => {
             });
           }
         });
-        clickedGroups = [];
       }
       if (clickedEdits[0]) {
         deleteEdits(clickedEdits);
@@ -56,15 +55,15 @@ const UndoHistory = ({ forceUpdate }) => {
     }
   };
 
-    const undoClicked = () => {
-	try{
-	    applyEdits(clickedEdits);
-	    deleteClicked();
-	}catch(err){
-	    alert(err);
-	}
+  const undoClicked = () => {
+    try {
+      applyEdits(clickedEdits);
+      deleteClicked();
+    } catch (err) {
+      alert(err);
     }
-    
+  };
+
   return (
     <div className="main">
       <h5>Undo History</h5>
@@ -86,9 +85,11 @@ const UndoHistory = ({ forceUpdate }) => {
       </div>
 
       <div className="buttonGroup">
-          <button onClick={() => setMoveShow(true)}>Move</button>
-          <button onClick={deleteClicked}>Delete</button>
-          <button onClick={undoClicked} id="mainButton">Undo</button>
+        <button onClick={() => setMoveShow(true)}>Move</button>
+        <button onClick={deleteClicked}>Delete</button>
+        <button onClick={undoClicked} id="mainButton">
+          Undo
+        </button>
       </div>
       <Modal
         animation={false}
