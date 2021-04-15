@@ -362,7 +362,7 @@ diff([H|T1],[H2|T2],[H|T3]):-
 						(now.getHours()*10000)+
 						(now.getMinutes()*100)+
 						(now.getSeconds());
-					    editObject = new Edit(editVal.slice(0,10)+"...",
+					    editObject = new Edit(editVal.slice(0,20),
 								  editVal,
 								  editStartPos,
 								  currentTime, //now.getTime(),
