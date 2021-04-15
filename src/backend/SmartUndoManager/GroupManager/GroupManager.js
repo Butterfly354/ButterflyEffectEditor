@@ -66,22 +66,6 @@ export const findGroupEdits = (groupName) => {
 };
 
 /**
- * applies every edit in the group with undoEdits() and deletes the entry (the group and its edits).
- * @throws an error if groupName does not exist.
- * @param {type} groupName           Name of the group you want to undo.
- */
-export const undoGroup = (groupName) => {
-  if (!(groupName in groupDictionary)) {
-    throw Error(`Group ${groupName} does not exist!`);
-  }
-  groupDictionary[groupName].forEach((edit) => {
-    //TODO: implement undoEdit, then uncomment this!!
-    //undoEdit(edit);
-  });
-  delete groupDictionary[groupName];
-};
-
-/**
  * deletes all groups. Can’t delete the default group.
  * Use carefully.
  */

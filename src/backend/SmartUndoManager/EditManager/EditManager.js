@@ -42,7 +42,7 @@ export const moveEdits = (newGroup, edits) => {
             groupDictionary[newGroup].push(edits[i]);
         }
     }
-    groupDictionary[newGroup].sort((a, b) => a.timeCreated.getTime() - b.timeCreated.getTime());
+    groupDictionary[newGroup].sort((a, b) => a.timeCreated - b.timeCreated);
 };
 
 /**
@@ -108,4 +108,3 @@ export const deleteEdits = (edits) => {
     }
   };
 
-// TODO check if we should update edit positions as the user makes changes to the document

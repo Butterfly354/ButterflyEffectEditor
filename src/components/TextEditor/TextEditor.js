@@ -164,7 +164,7 @@ function insertEdit(edit) {
     }	
 }
 /*
- * Function that will ventually shift the position sent back to the text so that it is not interrupting it much
+ * Function that will eventually shift the position sent back to the text so that it is not interrupting it much
  */
 function shiftPosition(edit){
     var newPosition = edit.position;
@@ -179,7 +179,7 @@ var lastDoc=[];
 
 const TextEditor = ({forceUpdate}) => {
     /*
-     * Does something? maybe?
+     * gets the textEditor content from localStorage when the component first mounts
      */
     useEffect(() => {
 	TextEditor.myRef.current.value =
@@ -362,7 +362,7 @@ diff([H|T1],[H2|T2],[H|T3]):-
 						(now.getHours()*10000)+
 						(now.getMinutes()*100)+
 						(now.getSeconds());
-					    editObject = new Edit(editVal.slice(0,10)+"...",
+					    editObject = new Edit(editVal.slice(0,20),
 								  editVal,
 								  editStartPos,
 								  currentTime, //now.getTime(),

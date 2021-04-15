@@ -10,3 +10,7 @@
 .active {
   background-color: #b696fc;
 }
+
+sub {
+  margin-left: 5px;
+}

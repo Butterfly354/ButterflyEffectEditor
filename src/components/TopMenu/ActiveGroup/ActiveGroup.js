@@ -10,10 +10,11 @@ const ActiveGroup = ({ groupDict, forceUpdate }) => {
   useEffect(() => {
     if (!(activeGroup in groupDict)) {
       setActiveGroup('Default');
+      currentActiveGroup = 'Default';
     }
   }, [forceUpdate]);
 
-    return (
+  return (
     <div className="activeDropdown">
       <Dropdown drop="left">
         <Dropdown.Toggle id="toggle">{activeGroup}</Dropdown.Toggle>
@@ -21,12 +22,12 @@ const ActiveGroup = ({ groupDict, forceUpdate }) => {
           {Object.keys(groupDict).map((title, index) => {
             return (
               <Dropdown.Item
-                  onClick={() => {
-		      setActiveGroup(title);
-		      currentActiveGroup = title;
-		  }}
-		  eventKey={index}
-                  key={index}>
+                onClick={() => {
+                  setActiveGroup(title);
+                  currentActiveGroup = title;
+                }}
+                eventKey={index}
+                key={index}>
                 {title}
               </Dropdown.Item>
             );
