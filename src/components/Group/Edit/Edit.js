@@ -29,7 +29,7 @@ const Edit = ({ edit, groupIsClicked }) => {
         }
       }}>
       <p className="editName">
-        {edit.name} {edit.name.length === 20 ? '...' : ''}
+        {edit.name} {edit.name.length > 19 ? '...' : ''}
         <sub>{edit.type == 'add' ? '++' : '--'}</sub>
       </p>
     </div>
