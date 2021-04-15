@@ -3,9 +3,10 @@ import {
   renameGroup,
   deleteGroup,
   findGroupEdits,
-  undoGroup,
   deleteAllGroups
 } from './GroupManager';
+import { addEdit } from '../EditManager/EditManager';
+import { Edit, EditType } from '../Edit';
 import { groupDictionary } from '../SmartUndoManager';
 
 /*NOTE: these tests are very coupled, tests rely on the tests before them as 
@@ -43,7 +44,16 @@ test('deleting a nonexistent group throws', () => {
 
 test('finding a groups edits works', () => {
   expect(findGroupEdits('newGroup')).toStrictEqual([]);
-  //TODO: using editManager's addEdit, add edits to a group, then retest this function
+  let testEdit = new Edit(
+    'testname',
+    'hello my name is laila',
+    [2, 3],
+    new Date(),
+    'newGroup',
+    EditType.add
+  );
+  addEdit(testEdit);
+  expect(findGroupEdits('newGroup')).toStrictEqual([testEdit]);
 });
 
 test('deleting a group works', () => {
@@ -55,13 +65,6 @@ test('deleting the default group throws', () => {
   expect(() => {
     deleteGroup('Default');
   }).toThrow(`Can't delete the Default group.`);
-});
-
-test('undoing a group works', () => {
-  createGroup('group1');
-  undoGroup('group1');
-  //TODO: fix this test, how to test undoing edits and groups?
-  expect(groupDictionary['group1']).toBeUndefined();
 });
 
 test('deleting all groups works', () => {

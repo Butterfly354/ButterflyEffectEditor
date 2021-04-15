@@ -32,15 +32,12 @@ const UndoHistory = ({ forceUpdate }) => {
           deleteGroup(group);
           //if clickedEdits were deleted in clickedGroup
           if (clickedEdits[0]) {
-            clickedEdits.forEach((edit) => {
-              //remove edit from the clickedEdits
-              if (edit.groupName === group) {
-                const index = clickedEdits.indexOf(edit);
-                if (index > -1) {
-                  clickedEdits.splice(index, 1);
-                }
+            for (let index = 0; index < clickedEdits.length; index++) {
+              if (clickedEdits[index].groupName === group) {
+                //remove edit from the clickedEdits
+                clickedEdits.splice(index--, 1);
               }
-            });
+            }
           }
         });
         clickedGroups = [];
@@ -71,7 +68,6 @@ const UndoHistory = ({ forceUpdate }) => {
 
       <div className="history">
         <SearchBar>
-          {/*TODO: collapse group*/}
           {Object.keys(groupDict).map((title) => {
             return (
               <Group

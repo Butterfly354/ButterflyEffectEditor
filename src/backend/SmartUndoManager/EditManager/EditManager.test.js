@@ -114,7 +114,7 @@ test('passing an empty list to moveEdits() throws an error', () => {
     expect(() => {
         EditManager.moveEdits("Default", listOfEdits);
     }).toThrow(
-        `Unable to move edits. Array of edits is empty!`
+        `Unable to move edits. No edits selected!`
     );
 });
 
@@ -126,7 +126,7 @@ test('passing an empty list to deleteEdits() throws an error', () => {
     expect(() => {
         EditManager.deleteEdits(listOfEdits);
     }).toThrow(
-        `Unable to delete edits. Array of edits is empty!`
+        `Unable to delete edits. No edits selected!`
     );
 });
 
