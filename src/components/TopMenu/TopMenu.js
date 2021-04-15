@@ -62,6 +62,10 @@ const TopMenu = ({ forceUpdate }) => {
                     'TextEditor',
                     JSON.stringify(TextEditor.myRef.current.value)
                   );
+                  //resetting the dictionary
+                  deleteAllGroups();
+                  setGroupDict(groupDict);
+                  forceUpdate();
                 } catch (err) {
                   alert(err);
                 }
@@ -220,25 +224,24 @@ const TopMenu = ({ forceUpdate }) => {
         onHide={() => setNewShow(false)}
         aria-labelledby="example-modal-sizes-title-sm">
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-            New File
-          </Modal.Title>
+          <Modal.Title id="example-modal-sizes-title-sm">New File</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Do you want to download your current file before starting new?
+        <Modal.Body>
+          Do you want to download your current file before starting new?
         </Modal.Body>
         <Modal.Body>
-        <InputGroup size="sm" className="mb-3">
-          <InputGroup.Prepend>
-            <InputGroup.Text id="inputGroup-sizing-sm">
-              Filename
-            </InputGroup.Text>
-          </InputGroup.Prepend>
-          <FormControl
-            aria-label="Filename"
-            aria-describedby="inputGroup-sizing-sm"
-            ref={fileNameInput}
-          />
-        </InputGroup>
+          <InputGroup size="sm" className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="inputGroup-sizing-sm">
+                Filename
+              </InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              aria-label="Filename"
+              aria-describedby="inputGroup-sizing-sm"
+              ref={fileNameInput}
+            />
+          </InputGroup>
         </Modal.Body>
         <Modal.Footer>
           <Button
@@ -260,9 +263,9 @@ const TopMenu = ({ forceUpdate }) => {
             variant="primary"
             onClick={() => {
               downloadFile(
-                  TextEditor.myRef.current.value,
-                  fileNameInput.current.value
-                );
+                TextEditor.myRef.current.value,
+                fileNameInput.current.value
+              );
               TextEditor.myRef.current.value = '';
               localStorage.setItem(
                 'TextEditor',
