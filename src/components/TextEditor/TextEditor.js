@@ -27,7 +27,6 @@ export const  applyEdits = (edits) => {
 }
 function prepareForQuery(s1,s2){
     var s1, s2;
-    console.log(s1 + "\n\n" + s2);
 
     for (let i = 0; i < s1.length; i++){
 	let val = s1[i];
@@ -51,6 +50,12 @@ function prepareForQuery(s1,s2){
 	case "@":  s1[i] = "'@'";break;
 	case "/":  s1[i] = "'/'";break;
 	case "\\": s1[i] = "'\\'";break;
+	case "[":  s1[i] = "'['";break;
+	case "]":  s1[i] = "']'";break;
+	case "|":  s1[i] = "'|'";break;
+	case "=":  s1[i] = "'='";break;
+	case "{":  s1[i] = "'{'";break;
+	case "}":  s1[i] = "'}'";break;
 	default:
 	}
     }
@@ -76,6 +81,12 @@ function prepareForQuery(s1,s2){
 	case "@":  s2[i] = "'@'";break;
 	case "/":  s2[i] = "'/'";break;
 	case "\\": s2[i] = "'\\'";break;
+	case "[":  s2[i] = "'['";break;
+	case "]":  s2[i] = "']'";break;
+	case "|":  s2[i] = "'|'";break;
+	case "=":  s2[i] = "'='";break;
+	case "{":  s2[i] = "'{'";break;
+	case "}":  s2[i] = "'}'";break;
 	default:
 	}
     }
@@ -112,7 +123,7 @@ diff2([H1|T1],[H|T2],[H|T3]):-
 			success: function(answer){
 			    let result = answer.lookup("S").toJavaScript();
 			    var ret = "";
-			    console.log(result);
+			    console.log("--------Result-------- \n"+result);
 			    for (var X in Object.entries(result)){
 				ret+=result[X];
 			    }
@@ -141,6 +152,9 @@ function insertEdit(edit) {
     switch (edit.type){
     case "add":{
 	console.log("Starting to remove addition");
+	/*
+	 * 
+	 */
 	let textBefore = doc.substring(0, editStartPosition);
 	let textAfter = doc.substring(editStartPosition);
 	console.log(textAfter.substring(0,edit.contents.length) + " : " + edit.contents);
@@ -148,12 +162,34 @@ function insertEdit(edit) {
 	    TextEditor.myRef.current.value = textBefore + textAfter.substring(edit.contents.length);
 	}
 	else{
-	    var match = checkAnyMatch(textAfter.substring(0,edit.contents.length),edit.contents);
+	    var textChunk = [...textAfter.substring(0,edit.contents.length)];
+	    var match = checkAnyMatch(textChunk, edit.contents);
+	    var finMatch;
+	    if (match.length > 0){
+		var j = 0;
+		for (let i = 0; i < textChunk.length; i++){
+		    if (j !== match.length && textChunk[i] !== match[j]){
+			finMatch += textChunk[i];
+			j++;
+		    }else if (textChunk[i] !== match[j]){
+			finMatch += textChunk[i];
+		    }
+		}
+		TextEditor.myRef.current.value =
+		    ( textBefore
+		    + finMatch
+		    + textAfter.substring(edit.contents.length)
+		    );
+	    }
 	}
 	return true;
     }
     case "remove":{
 	console.log("Starting add removal");
+	if (editStartPosition-edit.contents.length < 0)
+	    editStartPosition = 0;
+	else
+	    editStartPosition -= edit.contents.length;
 	let textBefore = doc.substring(0, editStartPosition);
 	let textAfter = doc.substring(editStartPosition);
 	TextEditor.myRef.current.value = textBefore + edit.contents + textAfter;
@@ -169,7 +205,7 @@ function insertEdit(edit) {
 function shiftPosition(edit){
     var newPosition = edit.position;
     var shift = 0;
-    console.log("------Dict------\n"+groupDictionary);
+    //console.log("------Dict------\n"+groupDictionary);
     newPosition += shift;
     return newPosition;
 }
@@ -326,6 +362,7 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		    goal = "diff(["+formattedDocs[0]+"],["+formattedDocs[1]+"],S).";
 		}
 		lastDoc = formattedDocs[1];
+		
 		console.log(goal);
 		/*
 		 * Consults the prolog program itself with tau-prolog, a prolog interpreter written in js,
@@ -377,7 +414,10 @@ diff([H|T1],[H2|T2],[H|T3]):-
 					}
 				    },
 				    error:   function(err) {
+					console.log("----------------"
+						    + "Error at getting answer");
 					console.log(err);
+					console.log("----------------");
 				    },
 				    fail:    function() {
 					console.log("false.");
