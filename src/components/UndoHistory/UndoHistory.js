@@ -52,6 +52,7 @@ const UndoHistory = ({ forceUpdate }) => {
     }
   };
 
+
   const undoClicked = () => {
     try {
       applyEdits(clickedEdits);
