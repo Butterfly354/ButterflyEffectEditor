@@ -25,6 +25,13 @@ export const  applyEdits = (edits) => {
 	insertEdit(edits[e]);
     }
 }
+/*
+ * When creating a query in prolog through tau prolog, it reads in a string for
+ * the goal. This function takes any character that will need to be escape
+ * charactered for prolog syntax and layers it again so that it correctly executes
+ * the query of a list of characters in prolog, else tau-prolog will read the 
+ * character as a prolog symbol and not a character causing an error.
+ */
 function prepareForQuery(s1,s2){
     var s1, s2;
 
@@ -93,8 +100,15 @@ function prepareForQuery(s1,s2){
     
     return [s1,s2];
 }
-
+/*
+ * Will take two strings, then use tau-prolog to query what the total set difference
+ * is between them. returning any characters that were different between them.
+ */
 function checkAnyMatch(s1, s2){
+    /*
+     * Create the prolog program and goal that will be querried
+     * against the program.
+     */
     const setDifference = `
 diff2(S,[],S).
 diff2([],S,S):-S\=[].
@@ -113,6 +127,7 @@ diff2([H1|T1],[H|T2],[H|T3]):-
 `;
     let tup = prepareForQuery([...s1],[...s2]);
     var goal = "diff2("+tup[0]+","+tup[1]+",S).";
+
     
     var session = pl.create();
     session.consult(setDifference, {
@@ -200,7 +215,9 @@ function insertEdit(edit) {
     }	
 }
 /*
- * Function that will ventually shift the position sent back to the text so that it is not interrupting it much
+ * Function that will eventually shift the position sent back to the text so that it is not interrupting it much
+ * 
+ * TODO: this.function() VVV
  */
 function shiftPosition(edit){
     var newPosition = edit.position;
@@ -210,12 +227,13 @@ function shiftPosition(edit){
     return newPosition;
 }
 
-
 var lastDoc=[];
+
+export function clearLastDoc(text){ lastDoc=[...text] }
 
 const TextEditor = ({forceUpdate}) => {
     /*
-     * Does something? maybe?
+     * gets the textEditor content from localStorage when the component first mounts
      */
     useEffect(() => {
 	TextEditor.myRef.current.value =
@@ -399,12 +417,13 @@ diff([H|T1],[H2|T2],[H|T3]):-
 						(now.getHours()*10000)+
 						(now.getMinutes()*100)+
 						(now.getSeconds());
-					    editObject = new Edit(editVal.slice(0,10)+"...",
-								  editVal,
-								  editStartPos,
-								  currentTime, //now.getTime(),
-								  currentActiveGroup,
-								  editType);
+					    editObject = new Edit(
+						editVal.slice(0,20),
+						editVal,
+						editStartPos,
+						currentTime, //now.getTime(),
+						currentActiveGroup,
+						editType);
 					    console.log(editObject);
 					    addEdit(editObject);
 					    setGroupDict(groupDict);
