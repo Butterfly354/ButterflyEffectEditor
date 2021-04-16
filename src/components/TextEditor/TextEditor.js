@@ -128,7 +128,10 @@ diff2([H1|T1],[H|T2],[H|T3]):-
     let tup = prepareForQuery([...s1],[...s2]);
     var goal = "diff2("+tup[0]+","+tup[1]+",S).";
 
-    
+    /*
+     * Actually consult the program, query the goal against it, then if the
+     * query was successful return the value of the variable S from the query. 
+     */
     var session = pl.create();
     session.consult(setDifference, {
 	success: function() {
@@ -168,7 +171,11 @@ function insertEdit(edit) {
     case "add":{
 	console.log("Starting to remove addition");
 	/*
-	 * 
+	 * First when removing the addition of text, the prolog will decide what
+	 * should be the text before and after where the change will take place.
+	 * Then it will proceed to check if the text at said location is modifed or
+	 * the exact same as the edit that was added there before, if it was the
+	 * exact same as the undid text it wil just remove it. Otherwise
 	 */
 	let textBefore = doc.substring(0, editStartPosition);
 	let textAfter = doc.substring(editStartPosition);
