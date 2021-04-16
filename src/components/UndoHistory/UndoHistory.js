@@ -10,7 +10,7 @@ import {
 import { deleteGroup } from '../../backend/SmartUndoManager/GroupManager/GroupManager';
 import { GroupContext } from '../../GroupContext';
 
-import {applyEdits } from '../TextEditor/TextEditor.js';
+import { applyEdits } from '../TextEditor/TextEditor.js';
 
 export let clickedEdits = [];
 export let clickedGroups = [];
@@ -32,18 +32,14 @@ const UndoHistory = ({ forceUpdate }) => {
           deleteGroup(group);
           //if clickedEdits were deleted in clickedGroup
           if (clickedEdits[0]) {
-            clickedEdits.forEach((edit) => {
-              //remove edit from the clickedEdits
-              if (edit.groupName === group) {
-                const index = clickedEdits.indexOf(edit);
-                if (index > -1) {
-                  clickedEdits.splice(index, 1);
-                }
+            for (let index = 0; index < clickedEdits.length; index++) {
+              if (clickedEdits[index].groupName === group) {
+                //remove edit from the clickedEdits
+                clickedEdits.splice(index--, 1);
               }
-            });
+            }
           }
         });
-        clickedGroups = [];
       }
       if (clickedEdits[0]) {
         deleteEdits(clickedEdits);
@@ -56,22 +52,22 @@ const UndoHistory = ({ forceUpdate }) => {
     }
   };
 
-    const undoClicked = () => {
-	try{
- 	    applyEdits(clickedEdits);
-	    deleteClicked();
-	}catch(err){
-	    alert(err);
-	}
+
+  const undoClicked = () => {
+    try {
+      applyEdits(clickedEdits);
+      deleteClicked();
+    } catch (err) {
+      alert(err);
     }
-    
+  };
+
   return (
     <div className="main">
       <h5>Undo History</h5>
 
       <div className="history">
         <SearchBar>
-          {/*TODO: collapse group*/}
           {Object.keys(groupDict).map((title) => {
             return (
               <Group
@@ -86,9 +82,11 @@ const UndoHistory = ({ forceUpdate }) => {
       </div>
 
       <div className="buttonGroup">
-          <button onClick={() => setMoveShow(true)}>Move</button>
-          <button onClick={deleteClicked}>Delete</button>
-          <button onClick={undoClicked} id="mainButton">Undo</button>
+        <button onClick={() => setMoveShow(true)}>Move</button>
+        <button onClick={deleteClicked}>Delete</button>
+        <button onClick={undoClicked} id="mainButton">
+          Undo
+        </button>
       </div>
       <Modal
         animation={false}

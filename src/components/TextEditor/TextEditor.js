@@ -216,7 +216,6 @@ function insertEdit(edit) {
 }
 /*
  * Function that will eventually shift the position sent back to the text so that it is not interrupting it much
- * 
  * TODO: this.function() VVV
  */
 function shiftPosition(edit){
@@ -417,13 +416,13 @@ diff([H|T1],[H2|T2],[H|T3]):-
 						(now.getHours()*10000)+
 						(now.getMinutes()*100)+
 						(now.getSeconds());
-					    editObject = new Edit(
-						editVal.slice(0,20),
-						editVal,
-						editStartPos,
-						currentTime, //now.getTime(),
-						currentActiveGroup,
-						editType);
+
+					    editObject = new Edit(editVal.slice(0,20),
+								  editVal,
+								  editStartPos,
+								  currentTime, //now.getTime(),
+								  currentActiveGroup,
+								  editType);
 					    console.log(editObject);
 					    addEdit(editObject);
 					    setGroupDict(groupDict);

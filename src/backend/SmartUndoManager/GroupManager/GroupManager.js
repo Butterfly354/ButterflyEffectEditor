@@ -41,7 +41,6 @@ export const renameGroup = (oldName, newName) => {
  * finds that entry in the dictionary and deletes it. Can’t delete the default group.
  *
  * @throws an error if groupName does not exist.
- * @throws an error if groupName is Default.
  * @param {type} groupName           Name of the group you want to delete.
  */
 export const deleteGroup = (groupName) => {
@@ -49,9 +48,9 @@ export const deleteGroup = (groupName) => {
     throw Error(`Group ${groupName} does not exist!`);
   }
   if (groupName === 'Default') {
-    throw Error(`Can't delete the Default group.`);
-  }
-  delete groupDictionary[groupName];
+    //if it is the default group, just empty it.
+    groupDictionary[groupName] = [];
+  } else delete groupDictionary[groupName];
 };
 
 /**
@@ -64,22 +63,6 @@ export const findGroupEdits = (groupName) => {
     throw Error(`Group ${groupName} does not exist!`);
   }
   return groupDictionary[groupName];
-};
-
-/**
- * applies every edit in the group with undoEdits() and deletes the entry (the group and its edits).
- * @throws an error if groupName does not exist.
- * @param {type} groupName           Name of the group you want to undo.
- */
-export const undoGroup = (groupName) => {
-  if (!(groupName in groupDictionary)) {
-    throw Error(`Group ${groupName} does not exist!`);
-  }
-  groupDictionary[groupName].forEach((edit) => {
-    //TODO: implement undoEdit, then uncomment this!!
-    //undoEdit(edit);
-  });
-  delete groupDictionary[groupName];
 };
 
 /**

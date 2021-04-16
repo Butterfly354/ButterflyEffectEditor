@@ -26,7 +26,9 @@ creating a new branch:
 ```
 git fetch origin
 git branch FEATURE_NAME origin/main
-
+git push -u origin FEATURE_NAME
+git checkout FEATURE_NAME
+git pull
 ```
 
 correct way to create a PR:
