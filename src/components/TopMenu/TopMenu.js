@@ -20,6 +20,7 @@ import TextEditor from '../TextEditor/TextEditor.js';
 import { GroupContext } from '../../GroupContext';
 import './TopMenu.css';
 import FontSizeChanger from 'react-font-size-changer';
+import { clearLastDoc } from './../TextEditor/TextEditor';
 
 const TopMenu = ({ forceUpdate }) => {
   const [groupDict, setGroupDict] = useContext(GroupContext);
@@ -60,6 +61,7 @@ const TopMenu = ({ forceUpdate }) => {
                 let fileToOpen = openFileButton.current.files[0];
                 try {
                   TextEditor.myRef.current.value = await openFile(fileToOpen);
+                  clearLastDoc(TextEditor.myRef.current.value);
                   localStorage.setItem(
                     'TextEditor',
                     JSON.stringify(TextEditor.myRef.current.value)
