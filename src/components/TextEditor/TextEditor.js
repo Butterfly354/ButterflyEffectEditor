@@ -178,7 +178,7 @@ function insertEdit(edit) {
 	 * exact same as the undid text it wil just remove it. Otherwise
 	 */
 	let textBefore = doc.substring(0, editStartPosition);
-	let textAfter = doc.substring(editStartPosition);
+	let textAfter = doc.substring(editStartPosition+edit.contents.length);
 	console.log(textAfter.substring(0,edit.contents.length) + " : " + edit.contents);
 	if (textAfter.substring(0,edit.contents.length) === edit.contents){
 	    TextEditor.myRef.current.value = textBefore + textAfter.substring(edit.contents.length);
@@ -228,8 +228,15 @@ function insertEdit(edit) {
 function shiftPosition(edit){
     var newPosition = edit.position;
     var shift = 0;
-    //console.log("------Dict------\n"+groupDictionary);
+    console.log(edit);
     newPosition += shift;
+    console.log('------Position is -----\n' + newPosition);
+    
+
+    for(var i = 0 ; i < groupDictionary.length ;i++){
+      console.log('------Dict is -----\n' + groupDictionary[i]); 
+    }
+    console.log('------Dict is 2 -----\n' + groupDictionary);
     return newPosition;
 }
 
