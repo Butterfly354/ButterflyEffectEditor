@@ -8,7 +8,7 @@ import { groupDictionary } from '../../backend/SmartUndoManager/SmartUndoManager
 
 var pl = require( "tau-prolog" );
 
-export const  applyEdits = (edits) => {
+export const applyEdits = async (edits) => {
 
     for (let i = 1; i < edits.length; i++){
 	for (let j = 0; j < (edits.length - i - 1); j++){
@@ -22,7 +22,7 @@ export const  applyEdits = (edits) => {
 	}	
     }    
     for (let e in edits){
-	insertEdit(edits[e]);
+	await insertEdit(edits[e]);
     }
 }
 /*
@@ -104,12 +104,14 @@ function prepareForQuery(s1,s2){
  * Will take two strings, then use tau-prolog to query what the total set difference
  * is between them. returning any characters that were different between them.
  */
-function checkAnyMatch(s1, s2){
+async function checkAnyMatch(s1, s2){
     /*
      * Create the prolog program and goal that will be querried
      * against the program.
      */
-    const setDifference = `
+    const program2 = `
+:-use_module(library(lists)).
+
 diff2(S,[],S).
 diff2([],S,S):-S\=[].
 diff2([H|T1],[H|T2],S3):-
@@ -125,15 +127,18 @@ diff2([H1|T1],[H|T2],[H|T3]):-
         L1 < L2,
         diff2([H1|T1],T2,T3).
 `;
+    
     let tup = prepareForQuery([...s1],[...s2]);
-    var goal = "diff2("+tup[0]+","+tup[1]+",S).";
-
+    var goal = "diff2(["+tup[0]+"],["+tup[1]+"],S).";
+    
     /*
      * Actually consult the program, query the goal against it, then if the
      * query was successful return the value of the variable S from the query. 
      */
-    var session = pl.create();
-    session.consult(setDifference, {
+    var session = new pl.create();
+    console.log(goal+"\n\nStarting consultation");
+    
+    session.consult(program2, {
 	success: function() {
 	    session.query(goal, {
 		success: function(goal){
@@ -145,18 +150,30 @@ diff2([H1|T1],[H|T2],[H|T3]):-
 			    for (var X in Object.entries(result)){
 				ret+=result[X];
 			    }
+			    console.log("\n"+ret);
 			    return ret;
 			},
-			error: function() {return "";},
-			fail: function() {return "";},
-			limit: function() {return "";}
+			error: function() {
+			    console.log("Error answer");
+			    return "";},
+			fail: function() {
+			    console.log("Fail answer");
+			    return "";},
+			limit: function() {
+			    console.log("Limit reached");
+			    return "";}
 		    })
 		},
-		error: function(){return "";}
+		error: function(){
+		    console.log("Error Query");
+		    return "";}
 	    });
 	},
-	error: function(){return "";}
+	error: function(){
+	    console.log("Error Consult");
+	    return "";}
     });
+    console.log("No Consult");
     return "";
 }		   
 
@@ -164,7 +181,8 @@ diff2([H1|T1],[H|T2],[H|T3]):-
  * Inserts an edit into the text body, will return a boolean of true or false to signify if it was successful or not
  * @returns bool
  */ 
-function insertEdit(edit) {	
+async function insertEdit(edit) {
+    console.log(edit);
     var editStartPosition = shiftPosition(edit);
     var doc = TextEditor.myRef.current.value;
     switch (edit.type){
@@ -178,15 +196,18 @@ function insertEdit(edit) {
 	 * exact same as the undid text it wil just remove it. Otherwise
 	 */
 	let textBefore = doc.substring(0, editStartPosition);
-	let textAfter = doc.substring(editStartPosition+edit.contents.length);
-	console.log(textAfter.substring(0,edit.contents.length) + " : " + edit.contents);
-	if (textAfter.substring(0,edit.contents.length) === edit.contents){
+	let textAfter = doc.substring(editStartPosition);
+	console.log(textAfter.substring(0,edit.contents.length) + " : " + edit.contents + "\n");
+	console.log("'"+doc.substring(editStartPosition, editStartPosition+edit.contents.length) +"' === '"+ edit.contents+"'");
+	console.log(doc.substring(editStartPosition, editStartPosition+edit.contents.length) === edit.contents);
+	if (doc.substring(editStartPosition,edit.contents.length) === edit.contents){
 	    TextEditor.myRef.current.value = textBefore + textAfter.substring(edit.contents.length);
-	}
-	else{
+	}else{
+	    console.log("starting edit else add insert");
 	    var textChunk = [...textAfter.substring(0,edit.contents.length)];
-	    var match = checkAnyMatch(textChunk, edit.contents);
-	    var finMatch;
+	    console.log(textChunk);
+	    var match = await checkAnyMatch(textChunk, edit.contents);
+	    var finMatch="";
 	    if (match.length > 0){
 		var j = 0;
 		for (let i = 0; i < textChunk.length; i++){
