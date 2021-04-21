@@ -40,6 +40,7 @@ const UndoHistory = ({ forceUpdate }) => {
             }
           }
         });
+        clickedGroups = [];
       }
       if (clickedEdits[0]) {
         deleteEdits(clickedEdits);
@@ -52,7 +53,7 @@ const UndoHistory = ({ forceUpdate }) => {
     }
   };
 
-
+  
   const undoClicked = () => {
     try {
       applyEdits(clickedEdits);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Edit.css';
 import { clickedEdits } from '../../UndoHistory/UndoHistory';
 
-const Edit = ({ edit, groupIsClicked }) => {
+const Edit = ({ edit, groupIsClicked, forceUpdate }) => {
   const [isClicked, setIsClicked] = useState(groupIsClicked);
   useEffect(() => {
     setIsClicked(groupIsClicked);
@@ -13,6 +13,10 @@ const Edit = ({ edit, groupIsClicked }) => {
       clickedEdits.pop(edit);
     }
   }, [groupIsClicked]);
+
+  useEffect(() => {
+    setIsClicked(false);
+  }, [forceUpdate]);
 
   return (
     <div

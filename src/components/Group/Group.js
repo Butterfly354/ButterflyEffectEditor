@@ -48,7 +48,7 @@ const Group = ({ title, edits, forceUpdate }) => {
         <Accordion.Collapse eventKey="0">
           <div>
             {edits.map((edit, key) => {
-              return <Edit edit={edit} groupIsClicked={isClicked} key={key} />;
+              return <Edit edit={edit} groupIsClicked={isClicked} key={key} forceUpdate={forceUpdate} />;
             })}
           </div>
         </Accordion.Collapse>
