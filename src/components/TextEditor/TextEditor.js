@@ -28,7 +28,7 @@ export const  applyEdits = (edits) => {
 /*
  * When creating a query in prolog through tau prolog, it reads in a string for
  * the goal. This function takes any character that will need to be escape
- * charactered for prolog syntax and layers it again so that it correctly executes
+ * character for prolog syntax and layers it again so that it correctly executes
  * the query of a list of characters in prolog, else tau-prolog will read the 
  * character as a prolog symbol and not a character causing an error.
  */
@@ -106,7 +106,7 @@ function prepareForQuery(s1,s2){
  */
 function checkAnyMatch(s1, s2){
     /*
-     * Create the prolog program and goal that will be querried
+     * Create the prolog program and goal that will be queried
      * against the program.
      */
     const setDifference = `
@@ -345,7 +345,7 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		 * First will start by taking the full document's value and turing it into
 		 * an ordered list/set of characters, then take the value of what the doc was
 		 * when the last edit was saved and do the same, then it will proceed to find
-		 * the set difference of the two, and save the differece, it will be decalared
+		 * the set difference of the two, and save the difference, it will be declared
 		 * a as removal or addition of text based on if there was more text before or
 		 * after.
 		 */
@@ -383,7 +383,7 @@ diff([H|T1],[H2|T2],[H|T3]):-
 		console.log(goal);
 		/*
 		 * Consults the prolog program itself with tau-prolog, a prolog interpreter written in js,
-		 * first it will start by consulting the program to make sure it is syntatically correct,
+		 * first it will start by consulting the program to make sure it is syntactically correct,
 		 * then it will query the already defined goal against the program, based on if the
 		 * query failed, succeeded, or other it will perform an action, sending the edit will
 		 * only happen on success which should always happen unless of an unforseen circumstance.
@@ -397,7 +397,7 @@ diff([H|T1],[H2|T2],[H|T3]):-
 				session.answer({
 				    success: function(answer) {
 					/*
-					 * Upon success, the differnce list is unified to the variable S,
+					 * Upon success, the difference list is unified to the variable S,
 					 * which we bind what its value was to result. The returned value
 					 * is an object type, so we then convert it to a string by appending 
 					 * each variable stored in it to editVal. Then if editVal is greater
