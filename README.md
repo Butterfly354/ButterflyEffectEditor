@@ -21,6 +21,8 @@ Here are the recorded tests. It is a predefined sequence of actions that must be
 
 -Opening and downloading a file
 
+-Creating, moving, deleting edits
+
 For the test involving the open file and download file options, you have to do the following in order to let the browser read your text file during the selenium run test.
 
 On Chrome you can go to: Window > More Tools > Extensions > Selenium IDE > Details
