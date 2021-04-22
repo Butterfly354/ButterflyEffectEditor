@@ -1,3 +1,5 @@
+## Butterfly Effect Editor
+
 ### try it out! http://butterfly-texteditor.surge.sh/
 
 
@@ -23,10 +25,23 @@ step.
 ```
 
 ------------
-to start working on this repo:
+### Setting up the project
 
-install npm
+* Install npm
 
-to run the code:
-```npm start``` in the terminal
-```npm test``` to run any tests inside .test.js files
+* Run:
+  * ```npm start```
+  * ```npm test``` to run any tests inside .test.js files
+
+### Team
+
+| Name | Github Username |
+|---|---|
+| Laila Chamma'a | [laila-chammaa](https://github.com/laila-chammaa) |
+| Bojan Srbinoski | [bojans1997](https://github.com/bojans1997) |
+| Alexander De Laurentiis | [Zandrenel](https://github.com/Zandrenel) |
+| Lisa Duong | [lisa7012](https://github.com/lisa7012) |
+| Maamar Kouadri | [MaamarKouadri](https://github.com/MaamarKouadri) |
+| Anthony Wong | [anthonywong0623](https://github.com/anthonywong0623) |
+| Etienne Bolduc | [relativeti](https://github.com/relativeti) |
+
