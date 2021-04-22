@@ -24,6 +24,21 @@ step.
 • Delete all the edits so that no undo will be possible.
 ```
 
+We also added extra features including:
+
+```
+• Setting up localStorage so that a refresh wouldn't remove your current workspace.
+
+• Moving edits from one group to another.
+
+• Uploading and downloading files.
+
+• Selecting a group as an active group, so that every edit created would be inside the current active group.
+
+• Changing the font-size of the editor.
+```
+
+
 ------------
 ### Setting up the project
 
