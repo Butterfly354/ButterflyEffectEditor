@@ -1,3 +1,5 @@
+### try it out! http://butterfly-texteditor.surge.sh/
+
 to start working on this repo:
 
 install npm
