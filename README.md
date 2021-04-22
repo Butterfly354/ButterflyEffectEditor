@@ -33,7 +33,8 @@ We also added extra features including:
 
 • Uploading and downloading files.
 
-• Selecting a group as an active group, so that every edit created would be inside the current active group.
+• Selecting a group as an active group, so that every edit created would be inside the current
+active group.
 
 • Changing the font-size of the editor.
 ```
