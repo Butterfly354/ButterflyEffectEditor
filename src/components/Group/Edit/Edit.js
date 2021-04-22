@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './Edit.css';
 import { clickedEdits } from '../../UndoHistory/UndoHistory';
 
-const Edit = ({ edit, groupIsClicked }) => {
+const Edit = ({ edit, groupIsClicked, forceUpdate }) => {
   const [isClicked, setIsClicked] = useState(groupIsClicked);
   useEffect(() => {
     setIsClicked(groupIsClicked);
     //if it group is clicked, but edit wasn't, add edit
     if (groupIsClicked && !isClicked) {
       clickedEdits.push(edit);
-      console.log(clickedEdits);
     } else if (!groupIsClicked) {
       clickedEdits.pop(edit);
-      console.log(clickedEdits);
     }
   }, [groupIsClicked]);
+
+  useEffect(() => {
+    setIsClicked(false);
+  }, [forceUpdate]);
 
   return (
     <div
@@ -25,14 +27,15 @@ const Edit = ({ edit, groupIsClicked }) => {
           //if it wasn't clicked, it will be now
           if (!isClicked) {
             clickedEdits.push(edit);
-            console.log(clickedEdits);
           } else {
             clickedEdits.pop(edit);
-            console.log(clickedEdits);
           }
         }
       }}>
-      <p>{edit.name}</p>
+      <p className="editName">
+        {edit.name} {edit.name.length > 19 ? '...' : ''}
+        <sub>{edit.type == 'add' ? '++' : '--'}</sub>
+      </p>
     </div>
   );
 };

@@ -7,3 +7,8 @@
   color: black;
   padding: 5px 10px;
 }
+
+#toggle:focus {
+  outline: none;
+  box-shadow: none;
+}

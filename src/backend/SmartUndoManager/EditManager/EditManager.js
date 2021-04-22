@@ -20,7 +20,6 @@ export const addEdit = (edit) => {
  *
  * @throws an error if the array of edits is empty
  * @throws an error if newGroup does not exist
- * @throws an error if newGroup is already used by the edits
  * @param {type} newGroup          name of new group.
  * @param {type} edits             array of edits to move
  */
@@ -32,7 +31,7 @@ export const moveEdits = (newGroup, edits) => {
     }
     if (edits.length < 1) {
         throw Error(
-            `Unable to move edits. Array of edits is empty!`
+            `Unable to move edits. No edits selected!`
         );
     }
     for (let i = 0; i < edits.length; i++) {
@@ -43,7 +42,7 @@ export const moveEdits = (newGroup, edits) => {
             groupDictionary[newGroup].push(edits[i]);
         }
     }
-    groupDictionary[newGroup].sort((a, b) => a.timeCreated.getTime() - b.timeCreated.getTime());
+    groupDictionary[newGroup].sort((a, b) => a.timeCreated - b.timeCreated);
 };
 
 /**
@@ -87,7 +86,7 @@ export const undoLastEdit = () => {
 export const deleteEdits = (edits) => {
     if (edits.length < 1) {
         throw Error(
-            `Unable to delete edits. Array of edits is empty!`
+            `Unable to delete edits. No edits selected!`
         );
     }
 
@@ -109,4 +108,3 @@ export const deleteEdits = (edits) => {
     }
   };
 
-// TODO check if we should update edit positions as the user makes changes to the document

@@ -1,9 +1,5 @@
-.edits {
-  margin: 0px 90px;
-}
-
 #title {
-  margin: 0 40px;
+  margin: 6px 0px 0px 30px;
 }
 
 .active {
@@ -12,4 +8,23 @@
 
 .group {
   cursor: pointer;
+}
+
+#arrow {
+  height: 8px;
+  width: 13px;
+  margin-top: 8px;
+  margin-left: 10px;
+  margin-right: 10px;
+  display: inline;
+  position: relative;
+  float: left;
+}
+
+.activeArrow {
+  transform: rotate(0deg);
+}
+
+.inactive {
+  transform: rotate(-90deg);
 }

@@ -3,6 +3,14 @@
   text-align: center;
 }
 
+.editName {
+  margin: 2px 0px;
+}
+
 .active {
   background-color: #b696fc;
+}
+
+sub {
+  margin-left: 5px;
 }
